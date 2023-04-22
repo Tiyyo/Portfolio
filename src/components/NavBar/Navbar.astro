@@ -1,0 +1,272 @@
+---
+import ArrowTopIcon from "../../assets/icons/ArrowTopIcon.astro";
+import DarkIcon from "../../assets/icons/DarkIcon.astro";
+import HamburgerIcon from "../../assets/icons/HamburgerIcon.astro";
+import LightIcon from "../../assets/icons/LightIcon.astro";
+import Links from "./Links.astro";
+import ToggleTheme from "./ToggleTheme.astro";
+
+const {} = Astro.props;
+---
+
+<nav class="navbar">
+  <div class="mobile-nav">
+    <div class="mobile-nav__wrapper">
+      <ul class="mobile-nav__links">
+        <li class="mobile-nav__link about-link">About Me</li>
+        <li class="mobile-nav__link portfolio-link">Portfolio</li>
+        <li class="mobile-nav__link skills-link">Skills</li>
+        <li class="mobile-nav__link contact-link">Contact</li>
+      </ul>
+    </div>
+    <ArrowTopIcon height={24} width={24} className="close-mobile-nav" />
+  </div>
+  <div class="toggle-container">
+    <LightIcon width={18} height={18} />
+    <ToggleTheme />
+    <DarkIcon width={18} height={18} />
+  </div>
+  <Links />
+  <HamburgerIcon width={24} height={24} className="hamburger-icon" />
+</nav>
+
+<style lang="scss">
+  $heightMobileNav: 9.3em;
+  .navbar {
+    font-family: "Atkinson";
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em 0;
+    color: var(--text);
+    background-color: var(--primary_soft_nav);
+  }
+
+  .toggle-container {
+    display: flex;
+    align-items: center;
+    margin-left: 0.7em;
+    column-gap: 0.15em;
+  }
+  .hamburger-icon {
+    margin-right: 0.7em;
+    cursor: pointer;
+    &:hover {
+      color: rgb(203, 151, 55);
+    }
+  }
+
+  .mobile-nav {
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 1em;
+    top: -9.3em;
+    height: 0;
+    width: 100%;
+    background-color: var(--primary_soft_mobile);
+    z-index: 2;
+    transition: all 0.6s ease-in;
+
+    &.is-active {
+      top: 0;
+      height: $heightMobileNav;
+    }
+    .close-mobile-nav {
+      animation: rotateArrow 0.25s ease-in 0s 1 normal forwards;
+      cursor: pointer;
+
+      &:hover {
+        color: rgb(203, 151, 55);
+      }
+
+      @keyframes rotateArrow {
+        0% {
+          transform: rotateZ(0);
+        }
+        100% {
+          transform: rotateZ(180deg);
+        }
+      }
+    }
+
+    .close-mobile-nav.is-active {
+      transition: transform 0.7s ease-out, color 0.3s ease-in-out;
+      animation: arrowNav 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) 105ms 1
+          normal forwards,
+        float 1s ease-in-out 1.5s infinite normal forwards;
+
+      @keyframes arrowNav {
+        0% {
+          top: 0;
+          opacity: 0;
+          transform: translateY(-$heightMobileNav / 2 * 0.95);
+        }
+        75% {
+          top: 60%;
+          transform: translateY($heightMobileNav / 2 * 0.05);
+        }
+        100% {
+          top: 50%;
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+  .mobile-nav__wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .mobile-nav__link {
+    opacity: 0;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-size: clamp(1.17em, 3vw, 4vw);
+    pointer-events: none;
+  }
+
+  .mobile-nav__link.is-active {
+    position: relative;
+    opacity: 1;
+    transition: opacity 1.5s ease-in-out, transform 0.4s ease-in;
+    pointer-events: auto;
+    &::before {
+      content: "";
+      position: absolute;
+      left: -50px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0;
+      background-image: url("/assets/images/arrow_right.svg");
+      height: 15px;
+      width: 15px;
+      transition: all 0.4s ease-in-out;
+    }
+
+    &:hover {
+      transform: translateX(5vw);
+
+      &::before {
+        left: -20px;
+        top: 50%;
+        opacity: 1;
+        transition: all 0.4s ease-in-out;
+      }
+    }
+  }
+
+  .contact-link.is-active {
+    animation: contactLink 1s cubic-bezier(0.215, 0.61, 0.355, 1) 0.5s 1 normal
+      forwards;
+    position: absolute;
+
+    @keyframes contactLink {
+      0% {
+        top: 0;
+        opacity: 0;
+      }
+      100% {
+        top: 80%;
+        opacity: 1;
+      }
+    }
+  }
+
+  .skills-link.is-active {
+    animation: skillsLink 1s cubic-bezier(0.215, 0.61, 0.355, 1) 0.5s 1 normal
+      forwards;
+    position: absolute;
+
+    @keyframes skillsLink {
+      0% {
+        top: 0;
+        opacity: 0;
+      }
+
+      100% {
+        top: 60%;
+        opacity: 1;
+      }
+    }
+  }
+  .portfolio-link.is-active {
+    animation: portfolioLink 1s cubic-bezier(0.215, 0.61, 0.355, 1) 0.5s 1
+      normal forwards;
+    position: absolute;
+
+    @keyframes portfolioLink {
+      0% {
+        top: 0;
+        opacity: 0;
+      }
+      100% {
+        top: 40%;
+        opacity: 1;
+      }
+    }
+  }
+
+  .about-link.is-active {
+    animation: aboutLink 1s cubic-bezier(0.215, 0.61, 0.355, 1) 0.5s 1 normal
+      forwards;
+    position: absolute;
+
+    @keyframes aboutLink {
+      0% {
+        top: 0;
+        opacity: 0;
+      }
+      100% {
+        top: 20%;
+        opacity: 1;
+      }
+    }
+  }
+</style>
+<script>
+  interface MobileNav {
+    icon: Element;
+    close: Element;
+    container: Element;
+    links: NodeList;
+    section: NodeList;
+    init: () => void;
+  }
+
+  const mobileNav: MobileNav = {
+    icon: document.querySelector(".hamburger-icon")!,
+    container: document.querySelector(".mobile-nav")!,
+    close: document.querySelector(".close-mobile-nav")!,
+    links: document.querySelectorAll(".mobile-nav__link")!,
+    section: document.querySelectorAll("section")!,
+    init: function () {
+      mobileNav.icon.addEventListener("click", (e: Event): void => {
+        mobileNav.container.classList.add("is-active");
+        mobileNav.close.classList.add("is-active");
+        mobileNav.links.forEach((link) => {
+          (link as Element).classList.add("is-active");
+        });
+      });
+      mobileNav.close.addEventListener("click", (): void => {
+        mobileNav.container.classList.remove("is-active");
+        mobileNav.close.classList.remove("is-active");
+        mobileNav.links.forEach((link) => {
+          (link as Element).classList.remove("is-active");
+        });
+      });
+      mobileNav.links.forEach((link, index) => {
+        link.addEventListener("click", () => {
+          (mobileNav.section[index + 1] as Element).scrollIntoView();
+        });
+      });
+    },
+  };
+
+  document.addEventListener("DOMContentLoaded", mobileNav.init);
+</script>

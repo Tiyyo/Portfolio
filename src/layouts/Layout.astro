@@ -1,6 +1,6 @@
 ---
 export interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
@@ -8,28 +8,224 @@ const { title } = Astro.props;
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>
 <style is:global>
-	:root {
-		--accent: 124, 58, 237;
-		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background-color: #F6F6F6;
-	}
-	code {
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
-	}
+  html,
+  body,
+  div,
+  span,
+  applet,
+  object,
+  iframe,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  pre,
+  a,
+  abbr,
+  acronym,
+  address,
+  big,
+  cite,
+  code,
+  del,
+  dfn,
+  em,
+  img,
+  ins,
+  kbd,
+  q,
+  s,
+  samp,
+  small,
+  strike,
+  strong,
+  sub,
+  sup,
+  tt,
+  var,
+  b,
+  u,
+  i,
+  center,
+  dl,
+  dt,
+  dd,
+  ol,
+  ul,
+  li,
+  fieldset,
+  form,
+  label,
+  legend,
+  table,
+  caption,
+  tbody,
+  tfoot,
+  thead,
+  tr,
+  th,
+  td,
+  article,
+  aside,
+  canvas,
+  details,
+  embed,
+  figure,
+  figcaption,
+  footer,
+  header,
+  hgroup,
+  menu,
+  nav,
+  output,
+  ruby,
+  section,
+  summary,
+  time,
+  mark,
+  audio,
+  video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-size: 100%;
+    vertical-align: baseline;
+  }
+  /* HTML5 display-role reset for older browsers */
+  article,
+  aside,
+  details,
+  figcaption,
+  figure,
+  footer,
+  header,
+  hgroup,
+  menu,
+  nav,
+  section {
+    display: block;
+  }
+
+  body {
+    line-height: 1;
+  }
+  ol,
+  ul {
+    list-style: none;
+  }
+  blockquote,
+  q {
+    quotes: none;
+  }
+
+  blockquote::before,
+  blockquote::after,
+  q:before,
+  q:after {
+    content: "";
+    content: none;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  /* Reset perso */
+  a,
+  del,
+  ins {
+    text-decoration: none;
+  }
+  a {
+    color: inherit;
+  }
+
+  label,
+  button {
+    cursor: pointer;
+  }
+
+  html {
+    box-sizing: border-box;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+
+  input,
+  button {
+    outline: 0;
+  }
+
+  code {
+    background-color: #ddd;
+    padding: 0.3em;
+  }
+
+  img {
+    max-width: 100%;
+  }
+  @font-face {
+    font-family: "Atkinson";
+    src: url("/fonts/Atkinson-Hyperlegible-Regular-102.otf") format("otf");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  html {
+    font-family: system-ui, sans-serif;
+    background-color: #f6f6f6;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+  code {
+    font-family: "Atkinson", Lucida, Courier New, monospace;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    background-image: url("../assets/images/background.svg");
+    min-height: 100vh;
+    --primary: rgb(247, 247, 241);
+    --primary_soft_nav: rgba(235, 235, 229, 0.686);
+    --primary_soft_mobile: rgba(235, 235, 229, 1);
+    --primary_light: rgb(67, 80, 85);
+    --teal: rgb(41, 161, 156);
+    --mint: rgb(163, 247, 191);
+    --text: rgba(32, 33, 33, 0.928);
+    background-color: var(--primary);
+  }
+
+  body[data-theme="dark"] {
+    --primary: rgb(39, 50, 58);
+    --primary_soft_nav: rgb(32, 41, 47, 0.685);
+    --primary_soft_mobile: rgb(32, 41, 47, 1);
+    --primary_light: rgb(67, 80, 85);
+    --teal: rgb(41, 161, 156);
+    --mint: rgb(163, 247, 191);
+    --text: rgb(219, 226, 233);
+  }
 </style>

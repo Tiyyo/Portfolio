@@ -1,0 +1,105 @@
+---
+const {} = Astro.props;
+---
+
+<div class="toggle-theme">
+  <label class="switch">
+    <input type="checkbox" class="checkbox" />
+    <div class="slider"></div>
+  </label>
+</div>
+
+<style>
+  .checkbox {
+    display: none;
+  }
+
+  .slider {
+    width: 40px;
+    height: 20px;
+    background-color: var(--primary);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    border: 4px solid transparent;
+    transition: 0.3s;
+    box-shadow: 0 0 10px 0 rgb(0, 0, 0, 0.25) inset;
+    cursor: pointer;
+  }
+
+  .slider::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: var(--teal);
+    transform: translateX(-17.5px);
+    border-radius: 20px;
+    transition: 0.3s;
+    box-shadow: 0 0 10px 3px rgb(0, 0, 0, 0.25);
+  }
+
+  .checkbox:checked ~ .slider::before {
+    transform: translateX(17.5px);
+    box-shadow: 0 0 10px 3px rgb(0, 0, 0, 0.25);
+  }
+
+  .checkbox:checked ~ .slider {
+    background-color: rgb(39, 50, 58);
+  }
+
+  .checkbox:active ~ .slider::before {
+    transform: translate(0);
+  }
+</style>
+<script>
+  interface Switch {
+    body: Element;
+    checkbox: Element;
+    darkIcon: Element;
+    lightIcon: Element;
+    init: () => void;
+    handleIcon: (arg: boolean, icon: Element) => void;
+    handleIcons: (arg: boolean, iconLeft: Element, iconRgiht: Element) => void;
+    handleTheme: (arg: boolean) => void;
+    handleClick: (arg: boolean, iconLeft: Element, iconRight: Element) => void;
+  }
+
+  const toggleTheme: Switch = {
+    body: document.querySelector("body")!,
+    checkbox: document.querySelector(".checkbox")!,
+    darkIcon: document.querySelector(".lucide-moon")!,
+    lightIcon: document.querySelector(".lucide-sun")!,
+    handleIcon: function (condition, icon) {
+      condition
+        ? icon.classList.add("is-active")
+        : icon.classList.remove("is-active");
+    },
+    handleIcons: function (condition, icon, secondIcon) {
+      toggleTheme.handleIcon(condition, icon);
+      toggleTheme.handleIcon(!condition, secondIcon);
+    },
+    handleTheme: function (conditon) {
+      conditon
+        ? toggleTheme.body.setAttribute("data-theme", "dark")
+        : toggleTheme.body.removeAttribute("data-theme");
+    },
+    handleClick: function (condition, icon, secondIcon) {
+      toggleTheme.handleIcons(condition, icon, secondIcon);
+      toggleTheme.handleTheme(condition);
+    },
+    init: function (): void {
+      let isChecked: boolean;
+      toggleTheme.checkbox.addEventListener("change", (e: Event): void => {
+        isChecked = (e.target as HTMLInputElement).checked;
+        toggleTheme.handleClick(
+          isChecked,
+          toggleTheme.darkIcon,
+          toggleTheme.lightIcon
+        );
+      });
+    },
+  };
+  toggleTheme.init();
+</script>

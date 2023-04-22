@@ -10,6 +10,14 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^2.3.0"
+    "@astrojs/node": "^5.1.1",
+    "@astrojs/preact": "^2.1.0",
+    "astro": "^2.3.0",
+    "preact": "^10.13.2",
+    "sass": "^1.62.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.7",
+    "prettier-plugin-astro": "^0.8.0"
   }
 }

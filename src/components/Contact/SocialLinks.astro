@@ -1,0 +1,52 @@
+---
+import GithubIcon from "../../assets/icons/GithubIcon.astro";
+import LinkedIn from "../../assets/icons/LinkedIn.astro";
+---
+
+<ul>
+  <a href="https://github.com/Tiyyo" target="_blank">
+    <li>
+      <GithubIcon height={20} width={20} />
+    </li>
+  </a>
+  <a href="https://www.linkedin.com/in/steeve-matou/" target="_blank">
+    <li>
+      <LinkedIn height={20} width={20} />
+    </li>
+  </a>
+</ul>
+
+<style lang="scss">
+  ul {
+    display: flex;
+    column-gap: 2em;
+  }
+  li {
+    list-style-type: none;
+    border: 3px solid teal;
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: teal;
+
+    &:hover {
+      color: tergb(206, 119, 33);
+      animation: float 1s ease-in-out 0.05s infinite normal forwards;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(3px);
+      }
+      0% {
+        transform: translateY(0px);
+      }
+    }
+  }
+</style>
