@@ -1,18 +1,24 @@
 ---
 export interface Props {
-  title: string;
+  title?: string;
   name: string;
 }
 const { title, name } = Astro.props;
 ---
 
 <section class={name}>
-  <h2 class="section-title">{title}</h2>
+  <h2 class="section-title">.{title}</h2>
   <slot />
 </section>
 
 <style>
   .home {
-    height: 100vh;
+    height: 70vh;
+  }
+  .section-title {
+    font-family: "PoetsenOne";
+    text-transform: uppercase;
+    font-size: clamp(1.2em, 5.3vw, 2.5em);
+    margin-left: 5vw;
   }
 </style>

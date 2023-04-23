@@ -1,0 +1,42 @@
+---
+export interface Props {
+  link: string;
+  skillName: string;
+}
+const { link, skillName } = Astro.props;
+---
+
+<div class="skill">
+  <div class="skill__logo">
+    <img src={link} alt="skill" />
+  </div>
+  <p class="skill__name">{skillName}</p>
+</div>
+
+<style lang="scss">
+  .skill {
+    width: 16%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &__logo {
+      // height: 2.4em;
+      // width: 2.4em;
+      overflow: hidden;
+      border-radius: 50%;
+      // background-color: rgb(55, 63, 58);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        object-fit: cover;
+        width: 80%;
+        aspect-ratio: 1/1;
+      }
+    }
+    &__name {
+      font-size: calc(0.3em + 1.3vw);
+    }
+  }
+</style>

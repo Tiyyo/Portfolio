@@ -13,12 +13,19 @@ const { title } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap"
+      rel="stylesheet"
+    />
     <title>{title}</title>
   </head>
   <body>
     <slot />
   </body>
 </html>
+
 <style is:global>
   html,
   body,
@@ -187,11 +194,28 @@ const { title } = Astro.props;
   }
   @font-face {
     font-family: "Atkinson";
-    src: url("/fonts/Atkinson-Hyperlegible-Regular-102.otf") format("otf");
+    src: url("/public/fonts/Atkinson-Hyperlegible-Regular-102.otf")
+      format("opentype");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
   }
+  @font-face {
+    font-family: "PoetsenOne";
+    src: url("public/fonts/PoetsenOne-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Akira";
+    src: url("public/fonts/Akira.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  @import url("https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap");
 
   html {
     font-family: system-ui, sans-serif;
@@ -210,13 +234,15 @@ const { title } = Astro.props;
     background-image: url("../assets/images/background.svg");
     min-height: 100vh;
     --primary: rgb(247, 247, 241);
-    --primary_soft_nav: rgba(235, 235, 229, 0.686);
-    --primary_soft_mobile: rgba(235, 235, 229, 1);
+    --primary_soft_nav: rgba(235, 235, 229, 0);
+    /* --primary_soft_nav: rgba(235, 235, 229, 0.686); */
+    --primary_soft_mobile: rgba(247, 247, 241, 1);
     --primary_light: rgb(67, 80, 85);
     --teal: rgb(41, 161, 156);
     --mint: rgb(163, 247, 191);
     --text: rgba(32, 33, 33, 0.928);
     background-color: var(--primary);
+    transition: all 0.3s ease;
   }
 
   body[data-theme="dark"] {

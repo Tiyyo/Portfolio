@@ -1,0 +1,46 @@
+---
+---
+
+<div class="catch">
+  <div class="catch__text">
+    <h1>My name is Steeve</h1>
+    <h2>I'am <span>Frontend developer</span></h2>
+  </div>
+  <div class="catch__illustration"></div>
+</div>
+
+<style lang="scss">
+  @font-face {
+    font-family: "Akira";
+    src: url("/assets/font/Akira.otf") format("otf");
+    // font-weight: normal;
+    // font-style: normal;
+    // font-display: swap;
+  }
+  .catch {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    &__text {
+      font-family: "Kaushan Script", cursive;
+      flex: 1 1 50%;
+
+      h1 {
+        font-size: 3vw;
+        font-weight: bold;
+      }
+      h2 {
+        font-size: 3vw;
+        span {
+          font-family: "PoetsenOne";
+          text-transform: uppercase;
+          font-size: 5vw;
+        }
+      }
+    }
+    &__illustration {
+      flex: 1 1 50%;
+    }
+  }
+</style>

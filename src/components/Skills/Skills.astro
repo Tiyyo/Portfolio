@@ -1,0 +1,91 @@
+---
+import Techno from "./Techno.astro";
+
+const mainTechnos = [
+  {
+    link: "public/assets/images/react.png",
+    name: "React",
+  },
+  {
+    link: "public/assets/images/javascript.png",
+    name: "Javascript",
+  },
+  {
+    link: "public/assets/images/redux.png",
+    name: "Redux toolkit",
+  },
+  {
+    link: "public/assets/images/scss.png",
+    name: "Scss",
+  },
+];
+
+const addTechnos = [
+  {
+    link: "public/assets/images/git.png",
+    name: "Git",
+  },
+  {
+    link: "public/assets/images/typescript.png",
+    name: "TypeScript",
+  },
+  {
+    link: "public/assets/images/nodejs.png",
+    name: "Node.js",
+  },
+  {
+    link: "public/assets/images/astrojs.png",
+    name: "Astro.js",
+  },
+  {
+    link: "public/assets/images/remix-seeklogo.com.svg",
+    name: "Remix",
+  },
+  {
+    link: "public/assets/images/tailwind.png",
+    name: "Tailwind",
+  },
+  {
+    link: "public/assets/images/mongo.png",
+    name: "MongoDB",
+  },
+];
+---
+
+<div class="skills">
+  <h3 class="skills__title">Technologies i have worked with</h3>
+  <div class="skills__main">
+    {
+      mainTechnos.map((skill) => {
+        return <Techno link={skill.link} skillName={skill.name} />;
+      })
+    }
+  </div>
+  <div class="skills__also">
+    {
+      addTechnos.map((skill) => {
+        return <Techno link={skill.link} skillName={skill.name} />;
+      })
+    }
+  </div>
+</div>
+
+<style>
+  .skills__title {
+    padding-left: 2vw;
+  }
+  .skills__main {
+    padding-left: 5vw;
+    margin: 0.5em 0;
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.3em;
+  }
+  .skills__also {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.3em;
+    margin: 0.5em 0;
+    padding-left: 5vw;
+  }
+</style>

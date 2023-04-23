@@ -4,21 +4,40 @@ import Section from "../layouts/Section.astro";
 import Navbar from "../components/NavBar/Navbar.astro";
 import About from "../components/About/About.astro";
 import SocialLinks from "../components/Contact/SocialLinks.astro";
+import Catch from "../components/Home/Catch.astro";
+import Skills from "../components/Skills/Skills.astro";
 ---
 
 <Layout title="Steeve">
   <Navbar />
   <main>
-    <Section title="Home" name="home">
-      <p>My name is Steeve</p>
-      <p>I'am Frontend developer</p>
+    <Section name="home">
+      <Catch />
     </Section>
-    <Section title="About" name="about">
+    <Section title="About Me" name="about">
       <About />
     </Section>
-    <Section title="Portfolio" name="portfolio">Here goes Home section</Section>
+    <Section title="Portfolio" name="portfolio">
+      <article class="project-card">
+        <picture class="project-card__screenshots"></picture>
+        <div class="project-card__description">
+          <h2 class="project-card__description__title"></h2>
+          <p class="project-card__description__overview"></p>
+          <p class="project-card__description__stack"></p>
+        </div>
+        <div class="project-card__links">
+          <a href="" target="_blank" class="project-card__links__demo">
+            <div>Demo</div>
+          </a>
+          <a href="" target="_blank" class="project-card__links__repo">
+            <div>Github</div>
+          </a>
+        </div>
+      </article>
+    </Section>
     <Section title="Skills" name="skills">
-      <ul class="top-skills">
+      <Skills />
+      <!-- <ul class="top-skills">
         <a href="">
           <li class="skill">React.js</li>
         </a>
@@ -42,15 +61,20 @@ import SocialLinks from "../components/Contact/SocialLinks.astro";
         </a><a href="">
           <li class="skill">Node & Express.js</li>
         </a>
-      </ul>
+      </ul> -->
     </Section>
     <Section title="Contact" name="contact">
       <h3>Reach out to me</h3>
+
       <SocialLinks />
+      <div class="github-card"></div>
+      <p>Let's talk about a project, collaboration or an idea you have</p>
       <form>
         <input type="text" />
         <input type="email" />
+        <input type="text" />
         <textarea></textarea>
+        <input type="submit" />
       </form>
     </Section>
   </main>
@@ -58,9 +82,3 @@ import SocialLinks from "../components/Contact/SocialLinks.astro";
 <footer class="footer">
   <p>@all right reserved steeve matou</p>
 </footer>
-
-<style>
-  main {
-    max-width: 60ch;
-  }
-</style>
