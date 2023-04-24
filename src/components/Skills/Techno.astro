@@ -19,19 +19,19 @@ const { link, skillName } = Astro.props;
     display: flex;
     flex-direction: column;
     align-items: center;
+    row-gap: 0.5em;
     &__logo {
-      // height: 2.4em;
-      // width: 2.4em;
+      height: 2em;
+      width: 2em;
       overflow: hidden;
       border-radius: 50%;
-      // background-color: rgb(55, 63, 58);
       display: flex;
       align-items: center;
       justify-content: center;
 
       img {
-        object-fit: cover;
-        width: 80%;
+        object-fit: contain;
+        width: 100%;
         aspect-ratio: 1/1;
       }
     }

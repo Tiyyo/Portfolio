@@ -3,50 +3,50 @@ import Techno from "./Techno.astro";
 
 const mainTechnos = [
   {
-    link: "public/assets/images/react.png",
+    link: "/assets/images/react.png",
     name: "React",
   },
   {
-    link: "public/assets/images/javascript.png",
+    link: "/assets/images/javascript.png",
     name: "Javascript",
   },
   {
-    link: "public/assets/images/redux.png",
+    link: "/assets/images/redux.png",
     name: "Redux toolkit",
   },
   {
-    link: "public/assets/images/scss.png",
+    link: "/assets/images/scss.png",
     name: "Scss",
   },
 ];
 
 const addTechnos = [
   {
-    link: "public/assets/images/git.png",
+    link: "/assets/images/git.png",
     name: "Git",
   },
   {
-    link: "public/assets/images/typescript.png",
+    link: "/assets/images/typescript.png",
     name: "TypeScript",
   },
   {
-    link: "public/assets/images/nodejs.png",
+    link: "/assets/images/nodejs.png",
     name: "Node.js",
   },
   {
-    link: "public/assets/images/astrojs.png",
+    link: "/assets/images/astrojs.png",
     name: "Astro.js",
   },
   {
-    link: "public/assets/images/remix-seeklogo.com.svg",
+    link: "/assets/images/remix.png",
     name: "Remix",
   },
   {
-    link: "public/assets/images/tailwind.png",
+    link: "/assets/images/tailwind.png",
     name: "Tailwind",
   },
   {
-    link: "public/assets/images/mongo.png",
+    link: "/assets/images/mongo.png",
     name: "MongoDB",
   },
 ];
@@ -73,6 +73,8 @@ const addTechnos = [
 <style>
   .skills__title {
     padding-left: 2vw;
+    font-size: 0.67em;
+    margin: 0.4em 0;
   }
   .skills__main {
     padding-left: 5vw;
@@ -80,6 +82,7 @@ const addTechnos = [
     display: flex;
     justify-content: flex-start;
     gap: 0.3em;
+    max-width: 1500px;
   }
   .skills__also {
     display: flex;
@@ -87,5 +90,6 @@ const addTechnos = [
     gap: 0.3em;
     margin: 0.5em 0;
     padding-left: 5vw;
+    max-width: 1500px;
   }
 </style>

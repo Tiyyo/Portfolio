@@ -6,79 +6,56 @@ import About from "../components/About/About.astro";
 import SocialLinks from "../components/Contact/SocialLinks.astro";
 import Catch from "../components/Home/Catch.astro";
 import Skills from "../components/Skills/Skills.astro";
+import Form from "../components/Contact/Form.astro";
+import Container from "../components/Portfolio/Container.astro";
 ---
 
 <Layout title="Steeve">
-  <Navbar />
-  <main>
-    <Section name="home">
-      <Catch />
-    </Section>
-    <Section title="About Me" name="about">
-      <About />
-    </Section>
-    <Section title="Portfolio" name="portfolio">
-      <article class="project-card">
-        <picture class="project-card__screenshots"></picture>
-        <div class="project-card__description">
-          <h2 class="project-card__description__title"></h2>
-          <p class="project-card__description__overview"></p>
-          <p class="project-card__description__stack"></p>
-        </div>
-        <div class="project-card__links">
-          <a href="" target="_blank" class="project-card__links__demo">
-            <div>Demo</div>
-          </a>
-          <a href="" target="_blank" class="project-card__links__repo">
-            <div>Github</div>
-          </a>
-        </div>
-      </article>
-    </Section>
-    <Section title="Skills" name="skills">
-      <Skills />
-      <!-- <ul class="top-skills">
-        <a href="">
-          <li class="skill">React.js</li>
-        </a>
-        <a href="">
-          <li class="skill">Rest API</li>
-        </a><a href="">
-          <li class="skill">Scss</li>
-        </a><a href="">
-          <li class="skill">Redux Toolkit</li>
-        </a>
-      </ul>
-      <ul>
-        <a href="">
-          <li class="skill">MongoDB</li>
-        </a><a href="">
-          <li class="skill">Git</li>
-        </a><a href="">
-          <li class="skill">TypeScript</li>
-        </a><a href="">
-          <li class="skill">Astro.js</li>
-        </a><a href="">
-          <li class="skill">Node & Express.js</li>
-        </a>
-      </ul> -->
-    </Section>
-    <Section title="Contact" name="contact">
-      <h3>Reach out to me</h3>
-
-      <SocialLinks />
-      <div class="github-card"></div>
-      <p>Let's talk about a project, collaboration or an idea you have</p>
-      <form>
-        <input type="text" />
-        <input type="email" />
-        <input type="text" />
-        <textarea></textarea>
-        <input type="submit" />
-      </form>
-    </Section>
-  </main>
+  <div class="main-container">
+    <Navbar />
+    <main>
+      <Section name="home">
+        <Catch />
+      </Section>
+      <Section title="About Me" name="about">
+        <About />
+      </Section>
+      <Section title="Portfolio" name="portfolio">
+        <Container />
+      </Section>
+      <Section title="Skills" name="skills">
+        <Skills />
+      </Section>
+      <Section title="Contact" name="contact">
+        <h3>Reach out to me</h3>
+        <SocialLinks />
+        <Form />
+      </Section>
+    </main>
+  </div>
 </Layout>
 <footer class="footer">
   <p>@all right reserved steeve matou</p>
 </footer>
+
+<style>
+  .main-container {
+    transition: 1s;
+
+    @media screen and (min-width: 768px) {
+      width: 90%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 4vh 2vh;
+      box-shadow: 0 25px 50px -12px black;
+    }
+  }
+  h3 {
+    font-family: "PoetsenOne";
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: light;
+    margin: 1em 0;
+    color: var(--text);
+  }
+</style>

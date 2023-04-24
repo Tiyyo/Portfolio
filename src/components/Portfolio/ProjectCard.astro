@@ -1,19 +1,178 @@
 ---
+import CodeIcon from "../../assets/icons/CodeIcon.astro";
+import LinkIcon from "../../assets/icons/LinkIcon.astro";
+
+export interface Props {
+  project: {
+    name: string | undefined;
+    overview: string;
+    stack: string[];
+    pictures: string[] | undefined;
+    demo_link: string | undefined;
+    repo_link: string | undefined;
+  };
+  index: number;
+}
+
+const { project, index } = Astro.props;
 ---
 
 <article class="project-card">
-  <picture class="project-card__screenshots"></picture>
-  <div class="project-card__description">
-    <h2 class="project-card__description__title"></h2>
-    <p class="project-card__description__overview"></p>
-    <p class="project-card__description__stack"></p>
+  <div class="left-side">
+    <img
+      src={project.pictures ? project.pictures[0] : ""}
+      class="project-card__screenshots"
+    />
   </div>
-  <div class="project-card__links">
-    <a href="" target="_blank" class="project-card__links__demo">
-      <div>Demo</div>
-    </a>
-    <a href="" target="_blank" class="project-card__links__repo">
-      <div>Github</div>
-    </a>
+  <div class="right-side">
+    <div class="card-header">
+      <div class="round">
+        0{index}
+      </div>
+      <div class="line"></div>
+    </div>
+    <div class="project-card__description">
+      <h4 class="project-card__description__title">{project.name}</h4>
+      <p class="project-card__description__overview">{project.overview}</p>
+      <div class="project-card__description__stack">
+        {
+          project.stack.map((techno) => {
+            return (
+              <div class="project-card__description__stack__tag">{techno}</div>
+            );
+          })
+        }
+      </div>
+    </div>
+    <div class="project-card__links">
+      <a
+        href={project.demo_link}
+        target="_blank"
+        class="project-card__links__link demo"
+      >
+        <LinkIcon />
+        <span>Demo</span>
+      </a>
+      <a
+        href={project.repo_link}
+        target="_blank"
+        class="project-card__links__link repo"
+        ><CodeIcon />
+        <span>code</span>
+      </a>
+    </div>
+
+    <style lang="scss">
+      .project-card {
+        display: flex;
+        width: 95%;
+        max-width: 300px;
+        .left-side {
+          flex: 1 0 50%;
+          width: 50%;
+          cursor: pointer;
+          img {
+            width: 100%;
+            object-fit: cover;
+            aspect-ratio: 1/2;
+          }
+        }
+        .right-side {
+          position: relative;
+          flex: 1 0 50%;
+          width: 50%;
+          display: flex;
+          flex-direction: column;
+
+          .card-header {
+            display: flex;
+            align-items: center;
+          }
+          .round {
+            background-color: black;
+            width: 2.2em;
+            height: 2.2em;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+          }
+          .line {
+            width: 100%;
+            height: 3px;
+            background-color: black;
+          }
+        }
+
+        .project-card__description {
+          padding: 0 5px;
+          width: 100%;
+
+          &__title {
+            text-align: center;
+            font-size: 1.2em;
+            margin: 0.3em 0;
+            letter-spacing: 0.02em;
+          }
+          &__overview {
+            text-align: justify;
+            font-size: 0.8em;
+            line-height: 1.2;
+            margin: 0.4em 0;
+          }
+          &__stack {
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: 0.2em;
+            margin-top: 10%;
+
+            &__tag {
+              font-size: 0.9em;
+              border: 1px solid rgba(0, 0, 0, 0.424);
+              padding: 3px 5px;
+              background-color: rgb(182, 213, 244);
+              border-radius: 0.24em;
+            }
+          }
+        }
+        .project-card__links {
+          display: flex;
+          position: absolute;
+          bottom: 10px;
+          gap: 0.25em;
+
+          &__link {
+            height: 1.5em;
+            width: 1.5em;
+            border: 1px solid black;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.3s;
+
+            span {
+              width: 0px;
+              overflow: hidden;
+              transition: 0.3s;
+              text-align: center;
+              margin-left: 5px;
+            }
+
+            &:hover {
+              width: 75%;
+              border-radius: 20px;
+              span {
+                padding: 2px;
+                width: 80px;
+              }
+            }
+          }
+        }
+      }
+    </style>
   </div>
 </article>

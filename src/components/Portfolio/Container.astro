@@ -1,0 +1,88 @@
+---
+import ProjectCard from "./ProjectCard.astro";
+
+const projects = [
+  {
+    name: "Umtappo",
+    overview:
+      "Web app where you search, rate and organize watchlists, Get content based on your likes and rates",
+    stack: ["React.js", "Redux", "Node.js", "MongoDB"],
+    pictures: ["/assets/images/umptappo_mock_1.png"],
+    demo_link: "https://umtappo-d6u1.onrender.com/",
+    repo_link: "https://github.com/Tiyyo/Umtappo",
+  },
+  {
+    name: "E-commerce page",
+    overview: "E-commerce product page",
+    stack: ["Javascript", "Sass"],
+    pictures: ["/assets/images/e-commerce_page_1.png"],
+    demo_link: "https://tiyyo.github.io/Ecommerce-product-page-/",
+    repo_link: "https://github.com/Tiyyo/Ecommerce-product-page-",
+  },
+  {
+    name: "My portfolio",
+    overview: "My personal portfolio",
+    stack: ["Astro.js"],
+    pictures: ["/assets/images/portfolio_mock_1.png"],
+    demo_link: "",
+    repo_link: "",
+  },
+  {
+    name: "HealthApp",
+    overview:
+      "Create personal recipes, track your macros, Get a shopping list based on your weekly need and what's left in the fridge at the end ",
+    stack: ["Remix", "Tailwind", "MongoDB"],
+    pictures: ["/assets/images/healthapp_mock_1.png"],
+    demo_link: "",
+    repo_link: "",
+  },
+];
+
+const tags = [
+  "JavaScript",
+  "TypeScript",
+  "Redux",
+  "Node.js",
+  "Sass",
+  "Astro.js",
+  "Remix",
+  "MongoDB",
+  "React.js",
+];
+---
+
+<h3>Here some of my work</h3>
+<div class="filters-tag">
+  {tags.map((tag) => <div class="tag">{tag}</div>)}
+</div>
+<div class="card-container">
+  {
+    projects.map((project, index) => (
+      <ProjectCard project={project} index={index + 1} />
+    ))
+  }
+</div>
+
+<style>
+  .card-container {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+  .filters-tag {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.2em;
+    padding: 2vh 5vh;
+  }
+  .tag {
+    font-size: 0.9em;
+    border: 1px solid rgba(0, 0, 0, 0.424);
+    padding: 3px 5px;
+    background-color: rgb(182, 213, 244);
+    border-radius: 0.24em;
+  }
+</style>
