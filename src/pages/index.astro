@@ -17,15 +17,21 @@ import Container from "../components/Portfolio/Container.astro";
       <Section name="home">
         <Catch />
       </Section>
+      <div class="section-seperator"></div>
       <Section title="About Me" name="about">
         <About />
       </Section>
+      <div class="section-seperator"></div>
       <Section title="Portfolio" name="portfolio">
+        <h3>Here some of my work</h3>
         <Container />
       </Section>
+      <div class="section-seperator"></div>
       <Section title="Skills" name="skills">
+        <h3 class="skills__title">Technologies i have worked with</h3>
         <Skills />
       </Section>
+      <div class="section-seperator"></div>
       <Section title="Contact" name="contact">
         <h3>Reach out to me</h3>
         <SocialLinks />
@@ -51,11 +57,17 @@ import Container from "../components/Portfolio/Container.astro";
     }
   }
   h3 {
-    font-family: "PoetsenOne";
+    font-family: "Itim", cursive;
     text-align: center;
-    font-size: 1.2em;
+    font-size: 1.4em;
     font-weight: light;
     margin: 1em 0;
     color: var(--text);
+  }
+  .section-seperator {
+    height: 1px;
+    width: 100%;
+    border-bottom: 1px dotted var(--teal);
+    margin: 2em 0;
   }
 </style>

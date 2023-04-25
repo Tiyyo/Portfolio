@@ -8,6 +8,8 @@ export interface Props {
     overview: string;
     stack: string[];
     pictures: string[] | undefined;
+    carousel_mobile?: string[];
+    carousel_desktop?: string[];
     demo_link: string | undefined;
     repo_link: string | undefined;
   };
@@ -17,7 +19,30 @@ export interface Props {
 const { project, index } = Astro.props;
 ---
 
-<article class="project-card">
+<article class="project-card" data-tag={project.stack}>
+  <div class="lightbox-carousel closed" data-carousel>
+    <button data-nav="prev" class="carouselNav prevBtn">prev</button>
+    <div class="image-container">
+      {
+        project.carousel_mobile?.map((img, index) => {
+          return (
+            <picture>
+              <source media="(max-width : 768px)" srcset={img} />
+              <source
+                media="(min-wdith : 769px)"
+                srcset={project.carousel_desktop[index]}
+              />
+              <img src={img} alt="screenshots project" />
+            </picture>
+          );
+        })
+      }
+      <img src={} alt="" class="slide-carousel" data-index="0" />
+      <img src="" alt="" class="slide-carousel" data-index="1" />
+      <img src="" alt="" class="slide-carousel" data-index="2" />
+    </div>
+    <button class="carouselNav nextBtn" data-nav="next">next</button>
+  </div>
   <div class="left-side">
     <img
       src={project.pictures ? project.pictures[0] : ""}
@@ -63,14 +88,91 @@ const { project, index } = Astro.props;
     </div>
 
     <style lang="scss">
+      .lightbox-carousel.closed {
+        z-index: -1;
+      }
+      .lightbox-carousel {
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.253);
+        backdrop-filter: blur(1px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        animation: open 0.3s ease-in 0s 1 normal forwards;
+
+        @keyframes open {
+          0% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+
+        .carouselNav {
+          position: absolute;
+          top: 50%;
+          height: 100%;
+          transform: translateY(-50%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .prevBtn {
+          left: 0;
+        }
+        .nextBtn {
+          right: 0;
+        }
+        .image-container {
+          border: 2px solid teal;
+          max-width: 95%;
+
+          img {
+            width: 100%;
+            object-fit: cover;
+          }
+        }
+      }
+      .project-card.hide {
+        opacity: 0.3;
+        transition: opacity 0.5s;
+        transition-delay: 0.25s;
+      }
+      .project-card.removed {
+        display: none;
+      }
+      .project-card.start {
+        display: none;
+      }
       .project-card {
         display: flex;
         width: 95%;
         max-width: 300px;
+        opacity: 1;
+        transition: opacity 0.5s;
+        transition-delay: 0.25s;
+
         .left-side {
           flex: 1 0 50%;
           width: 50%;
           cursor: pointer;
+          animation: opacityTranslateX 0.8s ease-out 0s normal forwards;
+
+          @keyframes opacityTranslateX {
+            0% {
+              transform: translateX(-100px);
+              opacity: 0;
+            }
+            100% {
+              opacity: 1;
+            }
+          }
           img {
             width: 100%;
             object-fit: cover;
@@ -83,13 +185,14 @@ const { project, index } = Astro.props;
           width: 50%;
           display: flex;
           flex-direction: column;
+          padding: 7px 5px 0 5px;
 
           .card-header {
             display: flex;
             align-items: center;
           }
           .round {
-            background-color: black;
+            background-color: rgb(75, 116, 116);
             width: 2.2em;
             height: 2.2em;
             border-radius: 50%;
@@ -100,39 +203,68 @@ const { project, index } = Astro.props;
             flex-shrink: 0;
           }
           .line {
-            width: 100%;
             height: 3px;
-            background-color: black;
+            background-color: rgb(75, 116, 116);
+
+            animation: line 1s ease-out 0s forwards;
+
+            @keyframes line {
+              0% {
+                width: 0%;
+              }
+              100% {
+                width: 100%;
+              }
+            }
           }
         }
 
         .project-card__description {
           padding: 0 5px;
           width: 100%;
+          color: var(--text);
+
+          @keyframes opacityTranslateY {
+            0% {
+              opacity: 0;
+              transform: translateY(10px);
+            }
+            100% {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
 
           &__title {
             text-align: center;
-            font-size: 1.2em;
+            font-size: 1.1em;
             margin: 0.3em 0;
             letter-spacing: 0.02em;
+            opacity: 0;
+
+            animation: opacityTranslateY 0.2s ease-in 0.6s 1 normal forwards;
           }
           &__overview {
             text-align: justify;
             font-size: 0.8em;
-            line-height: 1.2;
+            line-height: 1.1;
             margin: 0.4em 0;
+            opacity: 0;
+            animation: opacityTranslateY 0.35s ease-in 0.6s 1 normal forwards;
           }
           &__stack {
             display: inline-flex;
             flex-wrap: wrap;
             gap: 0.2em;
             margin-top: 10%;
+            opacity: 0;
+            animation: opacityTranslateY 0.5s ease-in 0.6s 1 normal forwards;
 
             &__tag {
-              font-size: 0.9em;
+              font-size: 0.77em;
               border: 1px solid rgba(0, 0, 0, 0.424);
               padding: 3px 5px;
-              background-color: rgb(182, 213, 244);
+              background-color: var(--light_background);
               border-radius: 0.24em;
             }
           }
@@ -140,34 +272,38 @@ const { project, index } = Astro.props;
         .project-card__links {
           display: flex;
           position: absolute;
-          bottom: 10px;
+          bottom: 0;
           gap: 0.25em;
 
           &__link {
-            height: 1.5em;
-            width: 1.5em;
-            border: 1px solid black;
-            background-color: white;
+            cursor: pointer;
+            height: 2em;
+            width: 2em;
+            color: rgb(250, 245, 245);
             border-radius: 50%;
+            box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+            background-color: rgb(75, 116, 116);
+            transition: 0.3s;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: 0.3s;
 
             span {
               width: 0px;
               overflow: hidden;
               transition: 0.3s;
               text-align: center;
-              margin-left: 5px;
+              // margin-left: 5px;
+              display: none;
             }
 
             &:hover {
-              width: 75%;
+              width: 100px;
               border-radius: 20px;
               span {
+                display: block;
                 padding: 2px;
-                width: 80px;
+                width: 50px;
               }
             }
           }
@@ -176,3 +312,33 @@ const { project, index } = Astro.props;
     </style>
   </div>
 </article>
+<script>
+  const cards = document.querySelectorAll(".project-card");
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove("hide");
+        } else {
+          entry.target.classList.add("hide");
+        }
+      });
+    },
+    {
+      threshold: 0.47,
+    }
+  );
+  cards.forEach((card) => observer.observe(card));
+
+  const mocks = document.querySelectorAll(".left-side");
+  const body = document.querySelector("body");
+
+  mocks.forEach((mock) => {
+    mock.addEventListener("click", (e) => {
+      let carousel = e.currentTarget.parentNode.children[0];
+      carousel.classList.remove("closed");
+      body.style.overflow = "hidden";
+      console.log(mock.closest(".project-card"));
+    });
+  });
+</script>

@@ -1,28 +1,42 @@
 ---
 import ProjectCard from "./ProjectCard.astro";
 
-const projects = [
+export const projects = [
   {
     name: "Umtappo",
     overview:
       "Web app where you search, rate and organize watchlists, Get content based on your likes and rates",
     stack: ["React.js", "Redux", "Node.js", "MongoDB"],
     pictures: ["/assets/images/umptappo_mock_1.png"],
+    carousel_mobile: [
+      "/assets/images/umtappo_carousel_mobile_00.png",
+      "/assets/images/umtappo_carousel_mobile_01.png",
+      "/assets/images/umtappo_carousel_mobile_02.png",
+      "/assets/images/umtappo_carousel_mobile_03.png",
+    ],
+    carousel_desktop: [
+      "/assets/images/umtappo_carousel_desktop_00.png",
+      "/assets/images/umtappo_carousel_desktop_01.png",
+      "/assets/images/umtappo_carousel_desktop_02.png",
+      "/assets/images/umtappo_carousel_desktop_03.png",
+    ],
     demo_link: "https://umtappo-d6u1.onrender.com/",
     repo_link: "https://github.com/Tiyyo/Umtappo",
   },
   {
     name: "E-commerce page",
-    overview: "E-commerce product page",
-    stack: ["Javascript", "Sass"],
+    overview:
+      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem officia, suscipit asperiores aut similique animi ea dignissimos magni! Accusantium",
+    stack: ["JavaScript", "Sass"],
     pictures: ["/assets/images/e-commerce_page_1.png"],
     demo_link: "https://tiyyo.github.io/Ecommerce-product-page-/",
     repo_link: "https://github.com/Tiyyo/Ecommerce-product-page-",
   },
   {
     name: "My portfolio",
-    overview: "My personal portfolio",
-    stack: ["Astro.js"],
+    overview:
+      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem officia, suscipit asperiores aut similique animi ea dignissimos magni! Accusantium ",
+    stack: ["Astro.js", "TypeScript"],
     pictures: ["/assets/images/portfolio_mock_1.png"],
     demo_link: "",
     repo_link: "",
@@ -31,14 +45,14 @@ const projects = [
     name: "HealthApp",
     overview:
       "Create personal recipes, track your macros, Get a shopping list based on your weekly need and what's left in the fridge at the end ",
-    stack: ["Remix", "Tailwind", "MongoDB"],
+    stack: ["Remix", "Tailwind", "MongoDB", "TypeScript"],
     pictures: ["/assets/images/healthapp_mock_1.png"],
     demo_link: "",
     repo_link: "",
   },
 ];
 
-const tags = [
+export const tags = [
   "JavaScript",
   "TypeScript",
   "Redux",
@@ -48,13 +62,14 @@ const tags = [
   "Remix",
   "MongoDB",
   "React.js",
+  "Tailwind",
 ];
 ---
 
-<h3>Here some of my work</h3>
 <div class="filters-tag">
   {tags.map((tag) => <div class="tag">{tag}</div>)}
 </div>
+
 <div class="card-container">
   {
     projects.map((project, index) => (
@@ -70,19 +85,60 @@ const tags = [
     gap: 1em;
     align-items: center;
     justify-content: space-evenly;
+    margin: 2em 0;
     width: 100%;
   }
   .filters-tag {
     display: inline-flex;
     flex-wrap: wrap;
-    gap: 0.2em;
+    gap: 0.6em 0.3em;
     padding: 2vh 5vh;
   }
   .tag {
     font-size: 0.9em;
     border: 1px solid rgba(0, 0, 0, 0.424);
-    padding: 3px 5px;
-    background-color: rgb(182, 213, 244);
+    padding: 6px 5px;
+    background-color: var(--light_background);
     border-radius: 0.24em;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  .tag.is-active {
+    border: 1px solid rgba(0, 0, 0, 0.424);
+    background-color: rgb(65, 143, 220);
+    box-shadow: 4px 6px 1px 0px #000000;
+    padding: 6px 5px;
+    transition: 0.3s;
   }
 </style>
+<script>
+  let filterValue: Array<string>;
+  let cardTags: Array<string>;
+
+  const tags = document.querySelectorAll(".tag");
+  const projectCard = document.querySelectorAll(".project-card");
+  tags.forEach((tag) =>
+    tag.addEventListener("click", (e) => {
+      tag.classList.toggle("is-active");
+      const activeFilter = document.querySelectorAll(".tag.is-active");
+      filterValue = [];
+      activeFilter.forEach((f) => filterValue.push(f.textContent as string));
+      projectCard.forEach((card) => {
+        cardTags = card.dataset.tag.split(",");
+
+        let isExist = filterValue.some((filter) => cardTags.includes(filter));
+        if (isExist && filterValue.length > 0) {
+          card.classList.remove("removed");
+        } else {
+          card.classList.add("removed");
+        }
+
+        if (filterValue.length === 0) {
+          projectCard.forEach((card) => {
+            card.classList.remove("removed");
+          });
+        }
+      });
+    })
+  );
+</script>

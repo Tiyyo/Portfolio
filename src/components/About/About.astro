@@ -28,9 +28,14 @@
 
 <style lang="scss">
   .about-background {
+    transform: translateX(-300vh);
+  }
+  .about-background.animate {
     position: relative;
     max-width: 800px;
     margin: 0 auto;
+    transform: translateX(0);
+    transition: 0.8s;
   }
   .photo-profile {
     height: 2em;
@@ -79,18 +84,19 @@
     font-size: calc(0.3em + 1.5vw);
     line-height: 1.2;
     color: rgb(220, 233, 230);
+    color: var(--text);
 
     @media screen and (min-width: 320px) {
-      font-size: calc(0.32em + 1.5vw);
+      font-size: calc(0.28em + 1.5vw);
     }
     @media screen and (min-width: 480px) {
-      font-size: calc(0.49em + 1.5vw);
+      font-size: calc(0.43em + 1.5vw);
     }
     @media screen and (min-width: 590px) {
-      font-size: calc(0.58em + 1.5vw);
+      font-size: calc(0.53em + 1.5vw);
     }
     @media screen and (min-width: 635px) {
-      font-size: calc(0.63em + 1.5vw);
+      font-size: calc(0.5em + 1.5vw);
     }
     @media screen and (min-width: 1040px) {
       font-size: calc(0.63em + 1.34vw);
@@ -135,3 +141,19 @@
     }
   }
 </style>
+<script>
+  const aboutBackground = document.querySelector(".about-background")!;
+  const startAnim = (el: Element): void => {
+    el.classList.add("animate");
+  };
+  const isInView = (el: Element) => {
+    const elementTop = el.getBoundingClientRect().top;
+    return elementTop <= window.innerHeight;
+  };
+
+  window.addEventListener("scroll", () => {
+    if (isInView(aboutBackground)) {
+      startAnim(aboutBackground);
+    }
+  });
+</script>
