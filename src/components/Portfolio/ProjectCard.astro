@@ -1,6 +1,7 @@
 ---
 import CodeIcon from "../../assets/icons/CodeIcon.astro";
 import LinkIcon from "../../assets/icons/LinkIcon.astro";
+import Carousel from "./Carousel.astro";
 
 export interface Props {
   project: {
@@ -20,7 +21,11 @@ const { project, index } = Astro.props;
 ---
 
 <article class="project-card" data-tag={project.stack}>
-  <div class="lightbox-carousel closed" data-carousel>
+  <Carousel
+    mobile={project.carousel_mobile}
+    desktop={project.carousel_desktop}
+  />
+  <!-- <div class="lightbox-carousel closed" data-carousel>
     <button data-nav="prev" class="carouselNav prevBtn">prev</button>
     <div class="image-container">
       {
@@ -42,7 +47,7 @@ const { project, index } = Astro.props;
       <img src="" alt="" class="slide-carousel" data-index="2" />
     </div>
     <button class="carouselNav nextBtn" data-nav="next">next</button>
-  </div>
+  </div> -->
   <div class="left-side">
     <img
       src={project.pictures ? project.pictures[0] : ""}
@@ -88,61 +93,21 @@ const { project, index } = Astro.props;
     </div>
 
     <style lang="scss">
-      .lightbox-carousel.closed {
-        z-index: -1;
-      }
-      .lightbox-carousel {
-        position: fixed;
-        height: 100%;
-        width: 100%;
-        top: 0;
-        left: 0;
-        background-color: rgba(0, 0, 0, 0.253);
-        backdrop-filter: blur(1px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10;
-        animation: open 0.3s ease-in 0s 1 normal forwards;
-
-        @keyframes open {
-          0% {
-            opacity: 0;
-          }
-          100% {
-            opacity: 1;
-          }
-        }
-
-        .carouselNav {
-          position: absolute;
-          top: 50%;
-          height: 100%;
-          transform: translateY(-50%);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .prevBtn {
-          left: 0;
-        }
-        .nextBtn {
-          right: 0;
-        }
-        .image-container {
-          border: 2px solid teal;
-          max-width: 95%;
-
-          img {
-            width: 100%;
-            object-fit: cover;
-          }
-        }
-      }
       .project-card.hide {
         opacity: 0.3;
         transition: opacity 0.5s;
         transition-delay: 0.25s;
+      }
+      .project-card.fadeOut {
+        animation: removed 0.4s ease-in 0s 1 normal forwards;
+        @keyframes removed {
+          0% {
+            opacity: 1;
+          }
+          100% {
+            opacity: 0;
+          }
+        }
       }
       .project-card.removed {
         display: none;
@@ -329,16 +294,4 @@ const { project, index } = Astro.props;
     }
   );
   cards.forEach((card) => observer.observe(card));
-
-  const mocks = document.querySelectorAll(".left-side");
-  const body = document.querySelector("body");
-
-  mocks.forEach((mock) => {
-    mock.addEventListener("click", (e) => {
-      let carousel = e.currentTarget.parentNode.children[0];
-      carousel.classList.remove("closed");
-      body.style.overflow = "hidden";
-      console.log(mock.closest(".project-card"));
-    });
-  });
 </script>

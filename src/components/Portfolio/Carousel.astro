@@ -1,0 +1,154 @@
+---
+import CloseIcon from "../../assets/icons/CloseIcon.astro";
+
+const { mobile, desktop } = Astro.props;
+---
+
+<div class="lightbox-carousel closed" data-carousel>
+  <div class="close-modal">
+    <CloseIcon />
+  </div>
+  <button data-nav="prev" class="carouselNav prevBtn">prev</button>
+  <div class="image-container">
+    {
+      mobile?.map((img: string, index: number) => {
+        return (
+          <picture class="slide" data-position={index}>
+            <source media="(max-width : 768px)" srcset={img} />
+            <source media="(min-wdith : 769px)" srcset={desktop[index]} />
+            <img src={img} alt="screenshots project" />
+          </picture>
+        );
+      })
+    }
+  </div>
+  <button class="carouselNav nextBtn" data-nav="next">next</button>
+</div>
+<style lang="scss">
+  .lightbox-carousel.closed {
+    left: -100%;
+  }
+  .lightbox-carousel {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(1px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    animation: open 0.3s ease-in 0s 1 normal forwards;
+
+    @keyframes open {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  }
+  .close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 15;
+  }
+
+  .carouselNav {
+    position: absolute;
+    top: 50%;
+    height: 100%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .prevBtn {
+    left: 0;
+  }
+  .nextBtn {
+    right: 0;
+  }
+  .image-container {
+    position: relative;
+    aspect-ratio: 3/5.5;
+    height: 80vh;
+    max-width: 80%;
+    z-index: 20;
+    overflow: hidden;
+    border-radius: 0.7em;
+  }
+  .slide {
+    position: absolute;
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+    transition: 0.3s;
+
+    img {
+      object-fit: contain;
+      height: 100%;
+      width: 100%;
+    }
+  }
+  .slide.current {
+    opacity: 1;
+    transition: opacity 0.3s;
+  }
+</style>
+<script>
+  const body = document.querySelector("body")!;
+  const carousel = {
+    mocks: document.querySelectorAll(".left-side"),
+    closeBtns: document.querySelectorAll(".close-modal")!,
+    container: null,
+    nav: null,
+    slides: null,
+    index: 0,
+    prev: function () {
+      carousel.index === 0
+        ? (carousel.index = carousel.slides.length - 1)
+        : carousel.index--;
+    },
+    next: function () {
+      carousel.index === carousel.slides.length - 1
+        ? (carousel.index = 0)
+        : carousel.index++;
+    },
+    init: function () {
+      carousel.mocks.forEach((mock) => {
+        mock.addEventListener("click", (e) => {
+          carousel.container = e.currentTarget.parentNode.children[0];
+          carousel.container.classList.remove("closed");
+          carousel.nav = carousel.container.querySelectorAll(".carouselNav");
+          carousel.slides = carousel.container.querySelectorAll(".slide");
+          body.style.overflow = "hidden";
+          carousel.nav.forEach((btn) => {
+            btn.addEventListener("click", () => {
+              btn.dataset.nav === "prev" ? carousel.prev() : carousel.next();
+              carousel.slides.forEach((slide) => {
+                if (+slide.dataset.position === carousel.index) {
+                  slide.classList.add("current");
+                } else {
+                  slide.classList.remove("current");
+                }
+              });
+            });
+          });
+        });
+      });
+      carousel.closeBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          carousel.container ? carousel.container.classList.add("closed") : "";
+          body.style.overflow = "auto";
+        });
+      });
+    },
+  };
+
+  carousel.init();
+</script>

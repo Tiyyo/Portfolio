@@ -112,33 +112,73 @@ export const tags = [
   }
 </style>
 <script>
-  let filterValue: Array<string>;
-  let cardTags: Array<string>;
+  interface Projects {
+    tags: NodeListOf<Element>;
+    cards: NodeListOf<Element>;
+    activeFilters: NodeList | [];
+    filterValue: Array<string>;
+    toggleFilter: (el: Element) => void;
+    getFilters: () => void;
+    removeCard: (el: Element) => void;
+    addCard: (el: Element) => void;
+    handleCards: (nodelist: NodeListOf<Element>) => void;
+    init: () => void;
+  }
 
-  const tags = document.querySelectorAll(".tag");
-  const projectCard = document.querySelectorAll(".project-card");
-  tags.forEach((tag) =>
-    tag.addEventListener("click", (e) => {
-      tag.classList.toggle("is-active");
-      const activeFilter = document.querySelectorAll(".tag.is-active");
-      filterValue = [];
-      activeFilter.forEach((f) => filterValue.push(f.textContent as string));
-      projectCard.forEach((card) => {
-        cardTags = card.dataset.tag.split(",");
-
-        let isExist = filterValue.some((filter) => cardTags.includes(filter));
-        if (isExist && filterValue.length > 0) {
-          card.classList.remove("removed");
-        } else {
-          card.classList.add("removed");
-        }
-
-        if (filterValue.length === 0) {
-          projectCard.forEach((card) => {
-            card.classList.remove("removed");
-          });
+  const projects: Projects = {
+    tags: document.querySelectorAll(".tag"),
+    cards: document.querySelectorAll(".project-card"),
+    activeFilters: [],
+    filterValue: [],
+    toggleFilter: function (el: Element) {
+      el.classList.toggle("is-active");
+    },
+    getFilters: function () {
+      projects.activeFilters = document.querySelectorAll(".tag.is-active");
+      let currentFilters: Array<string> = [];
+      projects.activeFilters.forEach((f) =>
+        currentFilters.push(f.textContent as string)
+      );
+      projects.filterValue = currentFilters;
+    },
+    removeCard: function (el: Element) {
+      el.classList.add("fadeOut");
+      setTimeout(() => {
+        el.classList.add("removed");
+        el.classList.remove("fadeOut");
+      }, 300);
+    },
+    addCard: function (el: Element) {
+      el.classList.remove("removed");
+    },
+    handleCards: function (nodelist) {
+      nodelist.forEach((card) => {
+        if (card !== null && card instanceof HTMLElement) {
+          let cardTags: Array<string>;
+          card.dataset.tag ? (cardTags = card.dataset.tag.split(",")) : "";
+          let isExist: boolean = projects.filterValue.some((f) =>
+            cardTags.includes(f)
+          );
+          if (projects.filterValue.length === 0) {
+            nodelist.forEach((card) => projects.addCard(card));
+          } else if (isExist && projects.filterValue.length > 0) {
+            projects.addCard(card);
+          } else {
+            projects.removeCard(card);
+          }
         }
       });
-    })
-  );
+    },
+    init: function () {
+      projects.tags.forEach((tag) =>
+        tag.addEventListener("click", () => {
+          projects.toggleFilter(tag);
+          projects.getFilters();
+          projects.handleCards(projects.cards);
+        })
+      );
+    },
+  };
+
+  projects.init();
 </script>
