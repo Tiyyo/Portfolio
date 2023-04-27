@@ -1,28 +1,33 @@
 ---
+import ArrowLeftIcon from "../../assets/icons/ArrowLeftIcon.astro";
+import ArrowRightIcon from "../../assets/icons/ArrowRightIcon.astro";
 import CloseIcon from "../../assets/icons/CloseIcon.astro";
 
 const { mobile, desktop } = Astro.props;
+
+// <source media="(min-width : 768px)" srcset={desktop[index]} />
 ---
 
 <div class="lightbox-carousel closed" data-carousel>
   <div class="close-modal">
     <CloseIcon />
   </div>
-  <button data-nav="prev" class="carouselNav prevBtn">prev</button>
+  <button data-nav="prev" class="carouselNav prevBtn"><ArrowLeftIcon /></button>
   <div class="image-container">
     {
       mobile?.map((img: string, index: number) => {
         return (
           <picture class="slide" data-position={index}>
-            <source media="(max-width : 768px)" srcset={img} />
-            <source media="(min-wdith : 769px)" srcset={desktop[index]} />
-            <img src={img} alt="screenshots project" />
+            <source media="(max-width : 767px)" srcset={img} />
+            <img src={desktop[index]} />
           </picture>
         );
       })
     }
   </div>
-  <button class="carouselNav nextBtn" data-nav="next">next</button>
+  <button class="carouselNav nextBtn" data-nav="next">
+    <ArrowRightIcon />
+  </button>
 </div>
 <style lang="scss">
   .lightbox-carousel.closed {
@@ -56,6 +61,7 @@ const { mobile, desktop } = Astro.props;
     top: 10px;
     right: 10px;
     z-index: 15;
+    color: var(--accent_color);
   }
 
   .carouselNav {
@@ -66,6 +72,9 @@ const { mobile, desktop } = Astro.props;
     display: flex;
     align-items: center;
     justify-content: center;
+    border: none;
+    background-color: transparent;
+    color: var(--accent_color);
   }
   .prevBtn {
     left: 0;
@@ -81,6 +90,9 @@ const { mobile, desktop } = Astro.props;
     z-index: 20;
     overflow: hidden;
     border-radius: 0.7em;
+    @media screen and (min-width: 768px) {
+      aspect-ratio: 16/9;
+    }
   }
   .slide {
     position: absolute;
@@ -101,50 +113,120 @@ const { mobile, desktop } = Astro.props;
   }
 </style>
 <script>
+  interface Carousel {
+    mocks: NodeListOf<Element>;
+    close: Element | null;
+    container: Element | null;
+    nav: NodeListOf<Element> | null;
+    slides: NodeListOf<Element> | null;
+    index: number;
+    prev: () => void;
+    next: () => void;
+    setSelectors: (event: Event) => void;
+    disabledScrollBody: () => void;
+    enableScrollBody: () => void;
+    showCarousel: () => void;
+    hideCarousel: () => void;
+    showImage: (image: Element) => void;
+    hideImage: (image: Element) => void;
+    handleImage: (image: Element) => void;
+    handleNav: (btn: Element) => void;
+    closeByBtn: (btn: Element) => void;
+    init: () => void;
+  }
   const body = document.querySelector("body")!;
-  const carousel = {
-    mocks: document.querySelectorAll(".left-side"),
-    closeBtns: document.querySelectorAll(".close-modal")!,
+
+  const carousel: Carousel = {
+    mocks: document.querySelectorAll(".left-side")!,
+    close: null,
     container: null,
     nav: null,
     slides: null,
     index: 0,
     prev: function () {
+      if (!carousel.slides) {
+        return;
+      }
       carousel.index === 0
         ? (carousel.index = carousel.slides.length - 1)
         : carousel.index--;
     },
     next: function () {
+      if (!carousel.slides) {
+        return;
+      }
       carousel.index === carousel.slides.length - 1
         ? (carousel.index = 0)
         : carousel.index++;
     },
+    setSelectors: function (event) {
+      event.currentTarget
+        ? (carousel.container = event.currentTarget.parentNode.children[0])
+        : "";
+
+      if (carousel.container) {
+        carousel.nav = carousel.container.querySelectorAll(".carouselNav");
+        carousel.slides = carousel.container.querySelectorAll(".slide");
+        carousel.close = carousel.container.querySelector(".close-modal");
+      }
+    },
+    disabledScrollBody: function () {
+      body.style.overflow = "hidden";
+    },
+    enableScrollBody: function () {
+      body.style.overflow = "auto";
+    },
+    showCarousel: function () {
+      carousel.container ? carousel.container.classList.remove("closed") : "";
+    },
+    hideCarousel: function () {
+      carousel.container ? carousel.container.classList.add("closed") : "";
+    },
+    showImage: function (img) {
+      img ? img.classList.add("current") : "";
+    },
+    hideImage: function (img) {
+      img.classList.remove("current");
+    },
+    handleImage: function (img) {
+      if (+img.dataset.position === carousel.index) {
+        carousel.showImage(img);
+      } else {
+        carousel.hideImage(img);
+      }
+    },
+    handleNav: function (button) {
+      button.dataset.nav === "prev" ? carousel.prev() : carousel.next();
+    },
+    closeByBtn: function (btn) {
+      btn.addEventListener("click", () => {
+        carousel.hideCarousel();
+        carousel.enableScrollBody();
+      });
+    },
     init: function () {
       carousel.mocks.forEach((mock) => {
         mock.addEventListener("click", (e) => {
-          carousel.container = e.currentTarget.parentNode.children[0];
-          carousel.container.classList.remove("closed");
-          carousel.nav = carousel.container.querySelectorAll(".carouselNav");
-          carousel.slides = carousel.container.querySelectorAll(".slide");
-          body.style.overflow = "hidden";
-          carousel.nav.forEach((btn) => {
-            btn.addEventListener("click", () => {
-              btn.dataset.nav === "prev" ? carousel.prev() : carousel.next();
-              carousel.slides.forEach((slide) => {
-                if (+slide.dataset.position === carousel.index) {
-                  slide.classList.add("current");
-                } else {
-                  slide.classList.remove("current");
-                }
+          carousel.setSelectors(e);
+          carousel.disabledScrollBody();
+          carousel.showCarousel();
+          if (!carousel.close) {
+            return;
+          }
+          if (carousel.slides && carousel.nav) {
+            carousel.showImage(carousel.slides[0]);
+            carousel.nav.forEach((btn) => {
+              btn.addEventListener("click", () => {
+                carousel.handleNav(btn);
+                carousel.slides.forEach((slide) => {
+                  carousel.handleImage(slide);
+                });
               });
             });
-          });
-        });
-      });
-      carousel.closeBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          carousel.container ? carousel.container.classList.add("closed") : "";
-          body.style.overflow = "auto";
+          } else {
+            carousel.closeByBtn(carousel.close);
+          }
+          carousel.closeByBtn(carousel.close);
         });
       });
     },
