@@ -7,19 +7,25 @@ const { title, name } = Astro.props;
 ---
 
 <section class={name}>
-  <h2 class="section-title">.{title}</h2>
+  <h2 class="section-title">{title}</h2>
   <slot />
 </section>
 
 <style>
+  section {
+    padding: 2em 2vh;
+  }
   .home {
     height: 70vh;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
   }
   .section-title {
     font-family: "PoetsenOne";
     text-transform: uppercase;
     font-size: clamp(1.2em, 2vw, 2.5em);
     margin-left: 5vw;
-    color: rgb(47, 49, 51);
+    color: var(--title_soft);
   }
 </style>

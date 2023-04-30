@@ -32,15 +32,20 @@ const {} = Astro.props;
 
 <style lang="scss">
   $heightMobileNav: 9.3em;
+
+  .hamburger-icon {
+    @media screen and (min-width: 768px) {
+      display: none;
+    }
+  }
   .navbar {
     font-family: "Atkinson";
-    position: sticky;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
     padding: 1em 0;
     color: var(--text);
-    background-color: var(--primary_soft_nav);
+    background-color: var(--primary);
   }
 
   .toggle-container {
@@ -52,8 +57,9 @@ const {} = Astro.props;
   .hamburger-icon {
     margin-right: 0.7em;
     cursor: pointer;
+
     &:hover {
-      color: rgb(203, 151, 55);
+      color: var(--accent_color);
     }
   }
 
@@ -63,12 +69,13 @@ const {} = Astro.props;
     justify-content: flex-end;
     align-items: center;
     padding: 0 1em;
-    top: -150px;
+    top: -50px;
     height: 0;
     width: 100%;
-    background-color: var(--primary_soft_mobile);
-    z-index: 2;
+    background-color: var(--primary);
+    z-index: 10;
     transition: all 0.6s ease-in;
+    height: 0;
 
     @media screen and (min-width: 768px) {
       display: none;
@@ -83,7 +90,7 @@ const {} = Astro.props;
       cursor: pointer;
 
       &:hover {
-        color: rgb(203, 151, 55);
+        color: var(--accent_color);
       }
 
       @keyframes rotateArrow {
@@ -100,7 +107,16 @@ const {} = Astro.props;
       transition: transform 0.7s ease-out, color 0.3s ease-in-out;
       animation: arrowNav 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) 105ms 1
           normal forwards,
-        float 1s ease-in-out 1.5s infinite normal forwards;
+        floatMobileBtn 1s linear 1.5s infinite alternate forwards;
+
+      @keyframes floatMobileBtn {
+        0% {
+          transform: translateY(0px);
+        }
+        100% {
+          transform: translateY(4px);
+        }
+      }
 
       @keyframes arrowNav {
         0% {

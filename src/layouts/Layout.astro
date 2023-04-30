@@ -235,25 +235,57 @@ const { title } = Astro.props;
     background-image: url("../assets/images/background.svg");
     min-height: 100vh;
     --primary: rgb(247, 247, 241);
+    --accent_color: rgb(202, 129, 19);
+    --gradient_light: linear-gradient(
+      200deg,
+      rgb(219, 235, 238, 0.9) 36%,
+      rgba(0, 0, 0, 0) 71%
+    );
+    --title_accent: rgb(11, 36, 35);
+    --title_soft: rgb(47, 49, 51);
+    --light_full: rgba(0, 0, 0, 0.424);
+    --full: rgb(27, 27, 27);
+    --light_background: rgb(219, 235, 238);
+    --shadow: rgba(33, 33, 33, 0.221);
+    --icon: rgb(18, 63, 62);
+    --active_tag: rgb(65, 143, 220);
+
     --primary_soft_nav: rgba(235, 235, 229, 0);
-    /* --primary_soft_nav: rgba(235, 235, 229, 0.686); */
-    --primary_soft_mobile: rgba(247, 247, 241, 1);
     --primary_light: rgb(67, 80, 85);
     --border: rgb(214, 219, 220);
-    --accent_color: rgb(202, 129, 19);
     --accent_color_light: rgb(207, 180, 140);
-    --light_background: rgb(219, 235, 238);
     --teal: rgb(41, 161, 156);
     --mint: rgb(163, 247, 191);
     --text: rgba(32, 33, 33, 0.928);
     background-color: var(--primary);
     transition: all 0.3s ease;
+
+    @media screen and (min-width: 768px) {
+      padding: 2vh 0;
+    }
   }
 
   body[data-theme="dark"] {
     --primary: rgb(39, 50, 58);
+    --accent_color: rgb(202, 129, 19);
+    --gradient_light: linear-gradient(
+      200deg,
+      rgba(56, 93, 99, 0.9) 36%,
+      rgba(0, 0, 0, 0) 71%
+    );
+    --title_accent: rgb(236, 239, 239);
+    --title_soft: rgb(190, 203, 203);
+    --light_full: rgba(255, 255, 255, 0.424);
+    --full: rgb(226, 226, 226);
+    --light_background: rgba(56, 93, 99, 0.9);
+    --active_tag: rgb(65, 143, 220);
+    --active_tag_text: rgb(11, 36, 35);
+    --shadow: rgba(142, 142, 142, 0);
+    --icon: rgb(202, 129, 19);
+    --accent_color_light: rgba(101, 153, 151, 0.936);
+
+    --border: rgba(87, 103, 104, 0.644);
     --primary_soft_nav: rgb(32, 41, 47, 0.685);
-    --primary_soft_mobile: rgb(32, 41, 47, 1);
     --primary_light: rgb(67, 80, 85);
     --teal: rgb(41, 161, 156);
     --mint: rgb(163, 247, 191);

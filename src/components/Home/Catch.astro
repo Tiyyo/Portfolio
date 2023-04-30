@@ -2,12 +2,29 @@
 ---
 
 <div class="catch">
+  <div class="round-background round-left"></div>
+  <!-- <div class="round-background round-right"></div> -->
   <div class="catch__text">
-    <h1>My name is Steeve</h1>
-    <h2>I'am <span>Frontend developer</span></h2>
+    <h1 class="introduction">Hola ! My name is</h1>
+    <div class="typewriter">
+      <span class="full-name"></span><span class="tube">|</span>
+    </div>
+    <h2 class="position">Frontend Developer</h2>
+    <p class="description">Who build interactive products for the web</p>
   </div>
   <div class="catch__illustration">
-    <img src="/assets/images/vector.png" alt="" />
+    <img
+      src="/assets/images/web_illustration_light_background.png"
+      alt=""
+      class="laptop-illustration"
+      data-theme="light"
+    />
+    <img
+      src="/assets/images/web_illustration_wo_shadow.png"
+      alt=""
+      class="laptop-illustration"
+      data-theme="dark"
+    />
   </div>
 </div>
 
@@ -15,34 +32,189 @@
   @font-face {
     font-family: "Akira";
     src: url("/assets/font/Akira.otf") format("otf");
-    // font-weight: normal;
-    // font-style: normal;
-    // font-display: swap;
   }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+  .hide {
+    opacity: 0;
+  }
+  .remove {
+    display: none;
+  }
+
+  .blinked {
+    animation: blink 500ms linear 0s infinite normal forwards;
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+  }
+
   .catch {
     width: 100%;
     height: 100%;
-
     display: flex;
-    &__text {
-      font-family: "Kaushan Script", cursive;
-      flex: 1 1 50%;
 
-      h1 {
-        font-size: 3vw;
-        font-weight: bold;
-      }
-      h2 {
-        font-size: 3vw;
-        span {
-          font-family: "PoetsenOne";
-          text-transform: uppercase;
-          font-size: 5vw;
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+    }
+
+    .round-background {
+      height: calc(6em + 18vw);
+      width: calc(6em + 18vw);
+      border-radius: 50%;
+      position: absolute;
+      z-index: 0;
+      top: calc(6em);
+      animation: float 10s ease 0s infinite alternate forwards;
+      transform-style: preserve-3d;
+
+      @keyframes float {
+        0% {
+          transform: translate(0px, 0px) rotateZ(0deg) skew(0deg);
+        }
+        100% {
+          transform: translate(50px, -25px) rotateZ(195deg) skew(0deg);
         }
       }
     }
+
+    .round-left {
+      background: var(--gradient_light);
+      left: 0px;
+      top: calc(4em);
+
+      @media screen and (max-width: 768px) {
+        left: -75px;
+        top: 1em;
+      }
+    }
+    .round-right {
+      background: linear-gradient(
+        20deg,
+        rgb(219, 235, 238, 0.9) 36%,
+        rgba(0, 0, 0, 0) 71%
+      );
+      right: 15px;
+      top: 3 * 6em;
+    }
+    &__text {
+      position: relative;
+      z-index: 1;
+      font-family: "Atkinson";
+      flex: 0 1 50%;
+      padding-left: 10%;
+      margin-top: 2em;
+
+      @media screen and (max-width: 768px) {
+        flex: 1 1 10%;
+      }
+
+      .introduction {
+        font-size: clamp(1em, 3vw, 2em);
+        color: var(--teal);
+        margin: 0 0 10px 0;
+        animation: fadeIn 0.6s ease-in-out 0s 1 normal forwards;
+      }
+      .typewriter {
+        font-size: clamp(2.5em, 8vw, 5em);
+        font-family: "PoetsenOne", system-ui, sans-serif;
+        margin: 0 0 10px 0;
+        color: var(--title_accent);
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 0.6s ease-in-out 0.6s 1 normal forwards;
+      }
+      .position {
+        font-size: clamp(2.5em, 7vw, 5em);
+        font-family: "PoetsenOne";
+        margin: 0 0 10px 0;
+        color: var(--title_soft);
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 0.6s ease-in-out 0.2s 1 normal forwards;
+      }
+      .description {
+        font-size: clamp(0.8em, 2vw, 1.6em);
+        color: var(--title_soft);
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 0.6s ease-in-out 0.4s 1 normal forwards;
+      }
+    }
     &__illustration {
-      flex: 1 1 50%;
+      position: relative;
+      z-index: 1;
+      flex: 0 1 50%;
+      margin: auto 0;
+      padding-right: 3vh;
+
+      @media screen and (max-width: 768px) {
+        flex: 1 1 10%;
+      }
     }
   }
 </style>
+<script>
+  interface Home {
+    name: string;
+    nameContainer: Element;
+    title: Element;
+    tube: Element | null;
+    handleBlink: (action: string, element: Element) => void;
+    writeMessage: (message: string, container: Element, speed: number) => void;
+    hideTube: () => void;
+    delayed: (writeMessage: () => void, delay: number) => void;
+    init: () => void;
+  }
+
+  const home: Home = {
+    name: "Steeve Matou",
+    nameContainer: document.querySelector(".full-name")!,
+    title: document.querySelector(".title-catch")!,
+    tube: document.querySelector(".tube")!,
+    handleBlink: function (action, element) {
+      action === "start"
+        ? element.classList.add("blinked")
+        : element.classList.remove("blinked");
+    },
+    writeMessage: function (message, container, speed) {
+      const splitMessage = message.split("");
+      for (let i = 1; i < splitMessage.length + 1; i++) {
+        setTimeout(() => {
+          container.innerHTML += splitMessage[i - 1];
+        }, speed * i);
+      }
+    },
+    hideTube: function () {
+      home.tube ? home.tube.remove() : null;
+    },
+    delayed: function (action, delay) {
+      setTimeout(() => {
+        action();
+      }, delay);
+    },
+    init: function () {
+      if (home.tube) {
+        home.tube.classList.remove("hide");
+        home.handleBlink("start", home.tube);
+        home.delayed(() => {
+          home.writeMessage(home.name, home.nameContainer, 150);
+        }, 1000);
+        home.delayed(home.hideTube, 2800);
+      }
+    },
+  };
+
+  window.addEventListener("DOMContentLoaded", home.init);
+</script>

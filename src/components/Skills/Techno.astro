@@ -28,7 +28,7 @@ const { link, skillName } = Astro.props;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0px 0px 20px 2px rgba(33, 33, 33, 0.221);
+      box-shadow: 0px 0px 20px 2px var(--shadow);
 
       @media screen and (min-width: 480px) {
         height: 2em;
@@ -50,7 +50,9 @@ const { link, skillName } = Astro.props;
       }
     }
     &__name {
+      color: var(--title_soft);
       font-size: 0.57em;
+      letter-spacing: 0.5px;
       @media screen and (min-width: 480px) {
         font-size: 0.67em;
       }

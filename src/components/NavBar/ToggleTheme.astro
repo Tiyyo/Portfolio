@@ -59,10 +59,12 @@ const {} = Astro.props;
     checkbox: Element;
     darkIcon: Element;
     lightIcon: Element;
+    illustrations: NodeListOf<Element>;
     init: () => void;
     handleIcon: (arg: boolean, icon: Element) => void;
     handleIcons: (arg: boolean, iconLeft: Element, iconRgiht: Element) => void;
     handleTheme: (arg: boolean) => void;
+    handleIllustration: (arg: boolean) => void;
     handleClick: (arg: boolean, iconLeft: Element, iconRight: Element) => void;
   }
 
@@ -71,6 +73,7 @@ const {} = Astro.props;
     checkbox: document.querySelector(".checkbox")!,
     darkIcon: document.querySelector(".lucide-moon")!,
     lightIcon: document.querySelector(".lucide-sun")!,
+    illustrations: document.querySelectorAll(".laptop-illustration")!,
     handleIcon: function (condition, icon) {
       condition
         ? icon.classList.add("is-active")
@@ -85,9 +88,32 @@ const {} = Astro.props;
         ? toggleTheme.body.setAttribute("data-theme", "dark")
         : toggleTheme.body.removeAttribute("data-theme");
     },
+    handleIllustration: function (condition) {
+      if (condition) {
+        toggleTheme.illustrations.forEach((illustration) => {
+          console.log(illustration);
+          if (illustration.dataset.theme === "light") {
+            illustration.classList.add("remove");
+          } else {
+            illustration.classList.remove("remove");
+          }
+        });
+      } else {
+        toggleTheme.illustrations.forEach((illustration) => {
+          if (illustration instanceof Element) {
+            if (illustration.dataset.theme === "dark") {
+              illustration.classList.add("remove");
+            } else {
+              illustration.classList.remove("remove");
+            }
+          }
+        });
+      }
+    },
     handleClick: function (condition, icon, secondIcon) {
       toggleTheme.handleIcons(condition, icon, secondIcon);
       toggleTheme.handleTheme(condition);
+      toggleTheme.handleIllustration(condition);
     },
     init: function (): void {
       let isChecked: boolean;

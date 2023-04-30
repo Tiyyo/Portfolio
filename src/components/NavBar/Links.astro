@@ -1,22 +1,70 @@
 ---
+import HomeIcon from "../../assets/icons/HomeIcon.astro";
 ---
 
 <ul class="nav-links">
-  <li class="link">Home</li>
+  <li class="link home-icon">
+    <HomeIcon />
+  </li>
   <li class="link">About</li>
   <li class="link">Portfolio</li>
   <li class="link">Skills</li>
-  <li class="link">Contact</li>
+  <li class="link contact">Contact</li>
 </ul>
 
 <style lang="scss">
   .nav-links {
-    display: none;
+    display: flex;
     list-style-type: none;
-    height: 50px;
+    align-items: flex-end;
+    column-gap: 15px;
+    margin-right: 4vh;
+    font-size: 0.9em;
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
 
     .link {
-      color: red;
+      color: var(--title_accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.3s ease;
+      letter-spacing: 0.5px;
+      &:hover {
+        color: var(--accent_color_light);
+      }
+    }
+
+    .home-icon {
+      color: var(--icon);
+      &:hover {
+        color: var(--teal);
+      }
     }
   }
 </style>
+<script>
+  interface DesktopNav {
+    icon: Element;
+    close: Element;
+    container: Element;
+    links: NodeList;
+    section: NodeList;
+    init: () => void;
+  }
+
+  const desktopNav: DesktopNav = {
+    links: document.querySelectorAll(".link")!,
+    section: document.querySelectorAll("section")!,
+    init: function () {
+      desktopNav.links.forEach((link, index) => {
+        link.addEventListener("click", () => {
+          (desktopNav.section[index] as Element).scrollIntoView();
+        });
+      });
+    },
+  };
+  document.addEventListener("DOMContentLoaded", desktopNav.init);
+</script>

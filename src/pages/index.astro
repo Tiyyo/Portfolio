@@ -41,18 +41,17 @@ import Container from "../components/Portfolio/Container.astro";
   </div>
 </Layout>
 <footer class="footer">
-  <p>@all right reserved steeve matou</p>
+  <p>Built and Designed by Steeve Matou</p>
 </footer>
 
 <style>
   .main-container {
     transition: 1s;
-
     @media screen and (min-width: 768px) {
       width: 90%;
-      max-width: 1400px;
+      max-width: 1600px;
       margin: 0 auto;
-      padding: 4vh 2vh;
+      padding: 1vh 0;
       box-shadow: 0 25px 50px -12px black;
     }
   }
@@ -68,6 +67,12 @@ import Container from "../components/Portfolio/Container.astro";
     height: 1px;
     width: 100%;
     border-bottom: 1px dotted var(--teal);
-    margin: 2em 0;
+  }
+
+  .footer {
+    text-align: center;
+    font-size: 0.7em;
+    color: rgba(54, 125, 125, 0.629);
+    padding: 3vh 0;
   }
 </style>

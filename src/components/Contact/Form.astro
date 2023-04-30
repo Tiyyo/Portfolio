@@ -21,7 +21,7 @@ import SendIcon from "../../assets/icons/SendIcon.astro";
     </div>
     <div class="input subject">
       <label for="subject">Subject</label>
-      <input type="text" id="subject" name="subject" />
+      <input type="text" id="subject" name="subject" placeholder="subject" />
     </div>
   </div>
   <div class="input email">
@@ -54,9 +54,10 @@ import SendIcon from "../../assets/icons/SendIcon.astro";
     font-size: 1.4em;
     margin: 1em 0;
     line-height: 1.3;
+    color: var(--title_accent);
 
     span {
-      color: var(--accent_color);
+      color: var(--teal);
       font-family: "Kaushan Script", cursive;
       font-size: 1.3em;
       font-weight: bold;
@@ -98,6 +99,8 @@ import SendIcon from "../../assets/icons/SendIcon.astro";
     label {
       font-size: 0.7em;
       padding-left: 3px;
+      margin-top: 2px;
+      color: var(--title_soft);
     }
 
     input {
@@ -108,7 +111,7 @@ import SendIcon from "../../assets/icons/SendIcon.astro";
       font-size: 0.7em;
       padding-left: 5px;
       background-color: transparent;
-      color: var(--text);
+      color: var(--title_soft);
 
       &::placeholder {
         padding-left: 7px;
@@ -135,6 +138,11 @@ import SendIcon from "../../assets/icons/SendIcon.astro";
         padding: 7px;
         color: var(--accent_color_light);
       }
+    }
+  }
+  .input.message {
+    label {
+      margin: 7px 0 3px 0;
     }
   }
 
@@ -185,3 +193,39 @@ import SendIcon from "../../assets/icons/SendIcon.astro";
     }
   }
 </style>
+<script
+  is:inline
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+></script>
+<script type="text/javascript">
+  (function () {
+    emailjs.init("9H6uBnXdtOeJI7tMB");
+  })();
+
+  const form = {
+    form: document.querySelector("form"),
+    serviceId: "service_n72zbnr",
+    templateId: "template_e45zty6",
+    handleSubmit: function () {},
+    init: function () {
+      form.form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const params = {
+          name: e.target.name.value,
+          subject: e.target.subject.value ? e.target.subject.value : null,
+          email: e.target.email.value,
+          message: e.target.message.value,
+        };
+        emailjs
+          .send(form.serviceId, form.templateId, params)
+          .then((res) => {
+            console.log(res);
+            alert("Your message have succesfully sent");
+          })
+          .catch((err) => console.log(err));
+      });
+    },
+  };
+  window.addEventListener("DOMContentLoaded", form.init());
+</script>

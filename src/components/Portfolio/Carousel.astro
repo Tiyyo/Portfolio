@@ -39,8 +39,8 @@ const { mobile, desktop } = Astro.props;
     width: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(1px);
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(2px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -62,6 +62,7 @@ const { mobile, desktop } = Astro.props;
     right: 10px;
     z-index: 15;
     color: var(--accent_color);
+    cursor: pointer;
   }
 
   .carouselNav {

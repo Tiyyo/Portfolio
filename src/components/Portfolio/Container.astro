@@ -29,6 +29,8 @@ export const projects = [
       "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem officia, suscipit asperiores aut similique animi ea dignissimos magni! Accusantium",
     stack: ["JavaScript", "Sass"],
     pictures: ["/assets/images/e-commerce_page_1.png"],
+    carousel_mobile: ["/assets/images/e-commerce_page_mobile.png"],
+    carousel_desktop: ["/assets/images/e-commerce_page_desktop.png"],
     demo_link: "https://tiyyo.github.io/Ecommerce-product-page-/",
     repo_link: "https://github.com/Tiyyo/Ecommerce-product-page-",
   },
@@ -37,7 +39,7 @@ export const projects = [
     overview:
       "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem officia, suscipit asperiores aut similique animi ea dignissimos magni! Accusantium ",
     stack: ["Astro.js", "TypeScript"],
-    pictures: ["/assets/images/portfolio_mock_1.png"],
+    pictures: ["/assets/images/portfolio_mock_laptop.png"],
     demo_link: "",
     repo_link: "",
   },
@@ -90,25 +92,28 @@ export const tags = [
   }
   .filters-tag {
     display: inline-flex;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 0.6em 0.3em;
     padding: 2vh 5vh;
   }
   .tag {
     font-size: 0.9em;
-    border: 1px solid rgba(0, 0, 0, 0.424);
-    padding: 6px 5px;
+    border: 1px solid : var(--light_full);
+    color : var(--title_accent);
+    padding: 7.5px 8px;
     background-color: var(--light_background);
     border-radius: 0.24em;
     transition: 0.3s;
     cursor: pointer;
+
   }
   .tag.is-active {
-    border: 1px solid rgba(0, 0, 0, 0.424);
-    background-color: rgb(65, 143, 220);
+    border: 1px solid none;
+    background-color: var(--active_tag);
     box-shadow: 4px 6px 1px 0px #000000;
-    padding: 6px 5px;
     transition: 0.3s;
+    color: var(--active_tag_text);
   }
 </style>
 <script>
