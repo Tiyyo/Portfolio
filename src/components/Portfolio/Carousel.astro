@@ -9,23 +9,35 @@ const { mobile, desktop } = Astro.props;
 ---
 
 <div class="lightbox-carousel closed" data-carousel>
-  <div class="close-modal">
+  <div class="close-modal" aria-role="button" aria-controls="carousel">
     <CloseIcon />
   </div>
-  <button data-nav="prev" class="carouselNav prevBtn"><ArrowLeftIcon /></button>
+  <button
+    type="button"
+    data-nav="prev"
+    class="carouselNav prevBtn"
+    aria-role="navigation"
+    aria-controls="carousel"><ArrowLeftIcon /></button
+  >
   <div class="image-container">
     {
       mobile?.map((img: string, index: number) => {
         return (
           <picture class="slide" data-position={index}>
             <source media="(max-width : 767px)" srcset={img} />
-            <img src={desktop[index]} />
+            <img src={desktop[index]} alt={"screenshot from app"} />
           </picture>
         );
       })
     }
   </div>
-  <button class="carouselNav nextBtn" data-nav="next">
+  <button
+    class="carouselNav nextBtn"
+    data-nav="next"
+    type="button"
+    aria-role="navigation"
+    aria-controls="carousel"
+  >
     <ArrowRightIcon />
   </button>
 </div>

@@ -10,24 +10,31 @@ const {} = Astro.props;
 ---
 
 <nav class="navbar">
-  <div class="mobile-nav">
+  <div aria-role="navigation" class="mobile-nav">
     <div class="mobile-nav__wrapper">
       <ul class="mobile-nav__links">
-        <li class="mobile-nav__link about-link">About Me</li>
-        <li class="mobile-nav__link portfolio-link">Portfolio</li>
-        <li class="mobile-nav__link skills-link">Skills</li>
-        <li class="mobile-nav__link contact-link">Contact</li>
+        <li aria-role="link" class="mobile-nav__link about-link">About Me</li>
+        <li aria-role="link" class="mobile-nav__link portfolio-link">
+          Portfolio
+        </li>
+        <li aria-role="link" class="mobile-nav__link skills-link">Skills</li>
+        <li aria-role="link" class="mobile-nav__link contact-link">Contact</li>
       </ul>
     </div>
     <ArrowTopIcon height={24} width={24} className="close-mobile-nav" />
   </div>
-  <div class="toggle-container">
+  <div aria-role="button" class="toggle-container">
     <LightIcon width={18} height={18} />
     <ToggleTheme />
     <DarkIcon width={18} height={18} />
   </div>
   <Links />
-  <HamburgerIcon width={24} height={24} className="hamburger-icon" />
+  <HamburgerIcon
+    width={24}
+    height={24}
+    className="hamburger-icon"
+    aria-role="button"
+  />
 </nav>
 
 <style lang="scss">

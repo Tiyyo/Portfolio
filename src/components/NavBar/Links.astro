@@ -2,14 +2,14 @@
 import HomeIcon from "../../assets/icons/HomeIcon.astro";
 ---
 
-<ul class="nav-links">
-  <li class="link home-icon">
+<ul aria-role="navigation" class="nav-links">
+  <li aria-role="link" class="link home-icon">
     <HomeIcon />
   </li>
-  <li class="link">About</li>
-  <li class="link">Portfolio</li>
-  <li class="link">Skills</li>
-  <li class="link contact">Contact</li>
+  <li aria-role="link" class="link">About</li>
+  <li aria-role="link" class="link">Portfolio</li>
+  <li aria-role="link" class="link">Skills</li>
+  <li aria-role="link" class="link contact">Contact</li>
 </ul>
 
 <style lang="scss">

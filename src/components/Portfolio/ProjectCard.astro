@@ -29,6 +29,7 @@ const { project, index } = Astro.props;
   <div class="left-side" data-title={project.name}>
     <img
       src={project.pictures ? project.pictures[0] : ""}
+      alt={"mock up from" + project.name}
       class="project-card__screenshots"
     />
   </div>

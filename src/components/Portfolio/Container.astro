@@ -6,7 +6,7 @@ export const projects = [
     name: "Umtappo",
     overview:
       "Web app where you search, rate and organize watchlists, Get content based on your likes and rates",
-    stack: ["React.js", "Redux", "Node.js", "MongoDB"],
+    stack: ["React.js", "Redux", "Sass", "Node.js", "MongoDB"],
     pictures: ["/assets/images/umptappo_mock_1.png"],
     carousel_mobile: [
       "/assets/images/umtappo_carousel_mobile_00.png",
@@ -15,7 +15,7 @@ export const projects = [
       "/assets/images/umtappo_carousel_mobile_03.png",
     ],
     carousel_desktop: [
-      "/assets/images/umtappo_carousel_desktop_00.png",
+      "/assets/images/umtappo-carousel-desktop-00.webp",
       "/assets/images/umtappo_carousel_desktop_01.png",
       "/assets/images/umtappo_carousel_desktop_02.png",
       "/assets/images/umtappo_carousel_desktop_03.png",
@@ -48,7 +48,7 @@ export const projects = [
     overview:
       "Create personal recipes, track your macros, Get a shopping list based on your weekly need and what's left in the fridge at the end ",
     stack: ["Remix", "Tailwind", "MongoDB", "TypeScript"],
-    pictures: ["/assets/images/healthapp_mock_1.png"],
+    pictures: ["/assets/images/healthapp_mock_1.webp"],
     demo_link: "",
     repo_link: "",
   },
@@ -161,7 +161,7 @@ export const tags = [
         if (card !== null && card instanceof HTMLElement) {
           let cardTags: Array<string>;
           card.dataset.tag ? (cardTags = card.dataset.tag.split(",")) : "";
-          let isExist: boolean = projects.filterValue.some((f) =>
+          let isExist: boolean = projects.filterValue.every((f) =>
             cardTags.includes(f)
           );
           if (projects.filterValue.length === 0) {
