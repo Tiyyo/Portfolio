@@ -17,6 +17,7 @@ const { title, name } = Astro.props;
   }
   .home {
     height: 70vh;
+    height: clamp(500px, 70vh, 600px);
     padding: 0;
     position: relative;
     overflow: hidden;

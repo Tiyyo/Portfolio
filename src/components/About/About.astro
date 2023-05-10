@@ -46,12 +46,20 @@
     opacity: 0;
     margin: 0 auto;
 
+    @media (orientation: landscape) {
+      margin: auto;
+    }
+
     img {
       border-radius: 0.3em;
       height: 100%;
       object-fit: cover;
       object-position: center;
       filter: grayscale(25%) sepia(0.2) saturate(0.9);
+
+      @media (orientation: landscape) {
+        max-height: 70vh;
+      }
 
       @media screen and (max-width: 768px) {
         height: 12em;
@@ -64,7 +72,7 @@
     }
   }
   .photo-profile.animate {
-    animation: fadeIn 0.3s linear 1.2s 1 normal forwards;
+    animation: fadeIn 0.3s linear 0.2s 1 normal forwards;
   }
   @keyframes fadeIn {
     0% {
