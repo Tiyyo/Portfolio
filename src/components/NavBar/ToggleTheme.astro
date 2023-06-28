@@ -92,7 +92,7 @@ const {} = Astro.props;
       if (condition) {
         toggleTheme.illustrations.forEach((illustration) => {
           console.log(illustration);
-          if (illustration.dataset.theme === "light") {
+          if ((illustration as HTMLElement).dataset.theme === "light") {
             illustration.classList.add("remove");
           } else {
             illustration.classList.remove("remove");
@@ -101,7 +101,7 @@ const {} = Astro.props;
       } else {
         toggleTheme.illustrations.forEach((illustration) => {
           if (illustration instanceof Element) {
-            if (illustration.dataset.theme === "dark") {
+            if ((illustration as HTMLElement).dataset.theme === "dark") {
               illustration.classList.add("remove");
             } else {
               illustration.classList.remove("remove");

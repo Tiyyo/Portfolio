@@ -39,6 +39,7 @@ const {} = Astro.props;
 
 <style lang="scss">
   $heightMobileNav: 9.3em;
+  $heightMobileNavDivided: calc($heightMobileNav / -2);
 
   .hamburger-icon {
     @media screen and (min-width: 768px) {
@@ -129,11 +130,11 @@ const {} = Astro.props;
         0% {
           top: 0;
           opacity: 0;
-          transform: translateY(-$heightMobileNav / 2 * 0.95);
+          transform: translateY($heightMobileNavDivided * 0.95);
         }
         75% {
           top: 60%;
-          transform: translateY($heightMobileNav / 2 * 0.05);
+          transform: translateY($heightMobileNavDivided * 0.05);
         }
         100% {
           top: 50%;
@@ -290,6 +291,7 @@ const {} = Astro.props;
       mobileNav.links.forEach((link, index) => {
         link.addEventListener("click", () => {
           (mobileNav.section[index + 1] as Element).scrollIntoView();
+          mobileNav.container.classList.remove("is-active");
         });
       });
     },
