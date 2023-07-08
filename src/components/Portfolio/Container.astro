@@ -6,7 +6,7 @@ export const projects = [
     name: "Umtappo",
     overview:
       "Web app where you search, rate and organize watchlists, Get content based on your likes and rates",
-    stack: ["React.js", "Redux", "Sass", "Node.js", "MongoDB"],
+    stack: ["React.js", "Redux", "Sass", "Express.js", "MongoDB"],
     pictures: ["/assets/images/umptappo_mock_1.png"],
     carousel_mobile: [
       "/assets/images/umtappo_carousel_mobile_00.png",
@@ -24,9 +24,20 @@ export const projects = [
     repo_link: "https://github.com/Tiyyo/Umtappo",
   },
   {
+    name: "Resep",
+    overview:
+      "Webapp where you build your own recipes and get the nutritional information of your recipes, and generate a shopping list based on your recipes",
+    stack: ["Remix", "Tailwind", "PostegreSQL", "TypeScript"],
+    pictures: ["/assets/images/resep_mock_laptop.png"],
+    carousel_desktop: ["/assets/images/resep_carousel_desktop.png"],
+    carousel_mobile: ["/assets/images/resep_carousel_desktop.png"],
+    demo_link: "",
+    repo_link: "https://github.com/Tiyyo/groc",
+  },
+  {
     name: "E-commerce page",
     overview:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem officia, suscipit asperiores aut similique animi ea dignissimos magni! Accusantium",
+      "E-commerce product page",
     stack: ["JavaScript", "Sass"],
     pictures: ["/assets/images/e-commerce_page_1.png"],
     carousel_mobile: ["/assets/images/e-commerce_page_mobile.png"],
@@ -37,20 +48,13 @@ export const projects = [
   {
     name: "My portfolio",
     overview:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem officia, suscipit asperiores aut similique animi ea dignissimos magni! Accusantium ",
+      "My personal portfolio built with Astro.js",
     stack: ["Astro.js", "TypeScript"],
     pictures: ["/assets/images/portfolio_mock_laptop.png"],
-    demo_link: "",
-    repo_link: "",
-  },
-  {
-    name: "HealthApp",
-    overview:
-      "Create personal recipes, track your macros, Get a shopping list based on your weekly need and what's left in the fridge at the end ",
-    stack: ["Remix", "Tailwind", "MongoDB", "TypeScript"],
-    pictures: ["/assets/images/healthapp_mock_1.webp"],
-    demo_link: "",
-    repo_link: "",
+    carousel_mobile: ["/assets/images/portfolio_carousel_mobile.png"],
+    carousel_desktop: ["/assets/images/portfolio_carousel_desktop.png"],
+    demo_link: "https://steevematou.dev/",
+    repo_link: "https://github.com/Tiyyo/Portfolio",
   },
 ];
 
@@ -58,13 +62,14 @@ export const tags = [
   "JavaScript",
   "TypeScript",
   "Redux",
-  "Node.js",
+  "Express.js",
   "Sass",
   "Astro.js",
   "Remix",
   "MongoDB",
   "React.js",
   "Tailwind",
+  "PostegreSQL"
 ];
 ---
 
